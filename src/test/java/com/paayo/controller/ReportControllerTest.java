@@ -79,14 +79,19 @@ class ReportControllerTest {
         return form("Sidewalk Garbage Pile", "SANITATION", "Plaridel St.", "Uncollected garbage");
     }
 
-    @Test
-    void showsReportsAndNewsWithPhotosOrPlaceholders() throws Exception {
+    private static NewsItem newsItem(String title) {
         NewsItem item = new NewsItem();
-        item.setTitle("Road Repair Advisory");
+        item.setTitle(title);
         item.setSummary("Reblocking along M.C. Briones St.");
         item.setSourceName("Sample source");
         item.setSourceUrl("https://example.com/news");
         item.setPublishedDate(LocalDate.of(2026, 11, 18));
+        return item;
+    }
+
+    @Test
+    void showsReportsAndNewsWithPhotosOrPlaceholders() throws Exception {
+        NewsItem item = newsItem("Road Repair Advisory");
         when(reportService.getAllReports()).thenReturn(List.of(
                 report("With photo", "https://example.com/p.jpg"), report("Without photo", null)));
         when(newsService.getLatestNews(10)).thenReturn(List.of(item));
@@ -98,6 +103,16 @@ class ReportControllerTest {
                         containsString("Roadworks"), containsString("Nov 19, 2026"),
                         containsString("Road Repair Advisory"), containsString("/images/news-placeholder.png"),
                         containsString("https://example.com/news"), containsString("Nov 18, 2026"))));
+    }
+
+    @Test
+    void marksOnlyTheNewestNewsAsHot() throws Exception {
+        when(newsService.getLatestNews(10)).thenReturn(List.of(newsItem("Newest"), newsItem("Older")));
+
+        String page = mvc.perform(get("/")).andReturn().getResponse().getContentAsString();
+
+        assertThat(page.split("Hot News", -1)).hasSize(2);
+        assertThat(page.indexOf("Hot News")).isLessThan(page.indexOf("Newest"));
     }
 
     /** TC-04: the filter shows one category. */

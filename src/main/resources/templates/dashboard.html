@@ -20,7 +20,8 @@
       <div class="news-list" tabindex="0" role="region" aria-labelledby="news-heading">
         <p class="empty" th:if="${news == null}">News is unavailable right now. Please try again later.</p>
         <p class="empty" th:if="${news != null and news.isEmpty()}">No government news yet.</p>
-        <article class="news-item" th:each="item : ${news}">
+        <article class="news-item" th:each="item, i : ${news}">
+          <p class="hot-tag" th:if="${i.first}">Hot News</p>
           <div class="news-top">
             <img class="news-image" th:src="${item.imageUrl} ?: @{/images/news-placeholder.png}" alt=""
                  loading="lazy" referrerpolicy="no-referrer"

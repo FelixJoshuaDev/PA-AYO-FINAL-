@@ -159,6 +159,17 @@ a {
   border-bottom: 0;
 }
 
+.hot-tag {
+  width: fit-content;
+  margin-bottom: .5rem;
+  padding: .1rem .6rem;
+  border-radius: 4px;
+  background: #b42318;
+  color: #fff;
+  font-size: .85rem;
+  text-transform: uppercase;
+}
+
 .news-top {
   display: flex;
   align-items: center;
