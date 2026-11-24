@@ -30,7 +30,7 @@ class AdminSeederTest {
     private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(4);
 
     private AdminSeeder seeder(String username, String email, String password) {
-        return new AdminSeeder(repository, encoder, username, email, password);
+        return new AdminSeeder(repository, encoder, username, email, password, "127.0.0.1:8085");
     }
 
     @Test
@@ -62,6 +62,17 @@ class AdminSeederTest {
         seeder(username, email, password).seedFirstAdmin();
 
         verify(repository, never()).save(any());
+    }
+
+    @Test
+    void refusesPlaceholderValuesOutsideTheEmulator() {
+        when(repository.isEmpty()).thenReturn(true);
+
+        new AdminSeeder(repository, encoder, "admin", "Admin@Example.com", "password1", "").seedFirstAdmin();
+        verify(repository, never()).save(any());
+
+        new AdminSeeder(repository, encoder, "admin", "admin@mandaue.gov.ph", "password1", "").seedFirstAdmin();
+        verify(repository).save(any());
     }
 
     @Test

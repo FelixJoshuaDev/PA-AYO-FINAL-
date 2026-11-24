@@ -30,17 +30,20 @@ public class AdminSeeder {
     private final String username;
     private final String email;
     private final String password;
+    private final boolean emulator;
 
-    /** Reads the ADMIN_* settings. */
+    /** Reads the ADMIN_* settings; example.com addresses are accepted only on the local emulator. */
     public AdminSeeder(AdminRepository adminRepository, PasswordEncoder passwordEncoder,
                        @Value("${pa-ayo.admin.username}") String username,
                        @Value("${pa-ayo.admin.email}") String email,
-                       @Value("${pa-ayo.admin.password}") String password) {
+                       @Value("${pa-ayo.admin.password}") String password,
+                       @Value("${pa-ayo.firebase.emulator-host}") String emulatorHost) {
         this.adminRepository = adminRepository;
         this.passwordEncoder = passwordEncoder;
         this.username = AdminAuthService.normalize(username);
         this.email = AdminAuthService.normalize(email);
         this.password = password;
+        this.emulator = !emulatorHost.isBlank();
     }
 
     /** Saves the first administrator if the admins collection is empty. */
@@ -51,9 +54,11 @@ public class AdminSeeder {
             if (!adminRepository.isEmpty()) {
                 return;
             }
-            if (username.isEmpty() || !email.matches("[^@\\s]+@[^@\\s]+")
+            // Placeholder values copied from .env.example must never become a real account.
+            boolean placeholder = !emulator && email.endsWith("@example.com");
+            if (username.isEmpty() || placeholder || !email.matches("[^@\\s]+@[^@\\s]+")
                     || !AdminAuthService.isAcceptablePassword(password)) {
-                log.warn("No administrator exists. Set ADMIN_USERNAME, ADMIN_EMAIL and an ADMIN_PASSWORD "
+                log.warn("No administrator exists. Set ADMIN_USERNAME, your real ADMIN_EMAIL and an ADMIN_PASSWORD "
                         + "of 8 to 72 characters, then restart.");
                 return;
             }
