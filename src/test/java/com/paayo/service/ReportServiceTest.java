@@ -129,6 +129,33 @@ class ReportServiceTest {
     }
 
     @Test
+    void deletesAReportAndItsPhoto() {
+        Report report = report();
+        report.setImageUrl("https://example.com/pa-ayo/p.jpg");
+        when(repository.findById("id1")).thenReturn(report);
+
+        service.deleteReport("id1");
+
+        verify(repository).delete("id1");
+        verify(images).deletePhoto("https://example.com/pa-ayo/p.jpg");
+    }
+
+    @Test
+    void cannotDeleteAMissingReport() {
+        assertThatThrownBy(() -> service.deleteReport("gone")).isInstanceOf(NotFoundException.class);
+        verify(repository, never()).delete(any());
+    }
+
+    @Test
+    void keepsThePhotoWhenTheReportCannotBeDeleted() {
+        when(repository.findById("id1")).thenReturn(report());
+        doThrow(new PersistenceException("down", null)).when(repository).delete("id1");
+
+        assertThatThrownBy(() -> service.deleteReport("id1")).isInstanceOf(PersistenceException.class);
+        verifyNoInteractions(images);
+    }
+
+    @Test
     void validatesReports() {
         assertThat(service.validateReport(report())).isTrue();
         assertThat(service.validateReport(null)).isFalse();

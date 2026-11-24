@@ -1,7 +1,7 @@
 /*
  * File:        ImageStorageService.java
  * Module:      Report photos
- * Purpose:     Validates optional report photos and stores them on Cloudinary (FR-08, FR-12).
+ * Purpose:     Validates, stores and deletes optional report photos on Cloudinary (FR-08, FR-12).
  * Responsible: Felix Joshua H. Abing
  * Created:     2026-11-24
  */
@@ -17,6 +17,10 @@ import java.io.UncheckedIOException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.unit.DataSize;
@@ -25,7 +29,10 @@ import org.springframework.web.multipart.MultipartFile;
 /** Photo rules and storage. An absent or empty file means "no photo". */
 @Service
 public class ImageStorageService {
+    private static final Logger log = LoggerFactory.getLogger(ImageStorageService.class);
     private static final int MAX_SIDE_PIXELS = 1200;
+    private static final String FOLDER = "pa-ayo";
+    private static final Pattern STORED_PHOTO = Pattern.compile(".*/(" + FOLDER + "/[^/.]+)\\.[a-z]+");
 
     private final Cloudinary cloudinary;
     private final long maxFileSizeBytes;
@@ -63,10 +70,23 @@ public class ImageStorageService {
                 .width(MAX_SIDE_PIXELS).height(MAX_SIDE_PIXELS).crop("limit").quality("auto");
         try {
             Map<?, ?> result = cloudinary.uploader()
-                    .upload(file.getBytes(), Map.of("folder", "pa-ayo", "transformation", scaled));
+                    .upload(file.getBytes(), Map.of("folder", FOLDER, "transformation", scaled));
             return (String) result.get("secure_url");
         } catch (IOException | RuntimeException e) {
             throw new PersistenceException("Photo upload failed", e);
+        }
+    }
+
+    /** Deletes a stored photo. A failure is logged for manual removal and does not stop the caller. */
+    public void deletePhoto(String imageUrl) {
+        Matcher stored = STORED_PHOTO.matcher(imageUrl == null ? "" : imageUrl);
+        if (!stored.matches()) {
+            return; // no photo, or a sample image bundled with the site
+        }
+        try {
+            cloudinary.uploader().destroy(stored.group(1), Map.of("invalidate", true));
+        } catch (IOException | RuntimeException e) {
+            log.error("Photo {} could not be deleted; remove it in Cloudinary", stored.group(1), e);
         }
     }
 

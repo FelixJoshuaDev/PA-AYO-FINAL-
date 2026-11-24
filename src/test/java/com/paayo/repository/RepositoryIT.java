@@ -86,6 +86,17 @@ class RepositoryIT {
     }
 
     @Test
+    void deletesOneReport() {
+        String kept = reports.save(report(Category.ROADWORKS, TIME)).getReportId();
+        String removed = reports.save(report(Category.ROADWORKS, TIME)).getReportId();
+
+        reports.delete(removed);
+
+        assertThat(reports.findById(removed)).isNull();
+        assertThat(reports.findAll()).extracting(Report::getReportId).containsExactly(kept);
+    }
+
+    @Test
     void returnsNullForUnknownOrUnusableIds() {
         assertThat(reports.findById("missing")).isNull();
         assertThat(reports.findById("")).isNull();

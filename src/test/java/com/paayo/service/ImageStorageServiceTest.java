@@ -13,6 +13,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyMap;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
@@ -99,6 +100,28 @@ class ImageStorageServiceTest {
         when(uploader.upload(any(), anyMap())).thenReturn(Map.of("secure_url", "https://example.com/p.jpg"));
 
         assertThat(service.storePhoto(Photos.of("image/jpeg", MB))).isEqualTo("https://example.com/p.jpg");
+    }
+
+    @Test
+    void deletesAStoredPhoto() throws IOException {
+        service.deletePhoto("https://res.cloudinary.com/demo/image/upload/v17/pa-ayo/abc123.jpg");
+
+        verify(uploader).destroy("pa-ayo/abc123", Map.of("invalidate", true));
+    }
+
+    @Test
+    void hasNothingToDeleteWithoutAStoredPhoto() {
+        service.deletePhoto(null);
+        service.deletePhoto("/images/samples/roadworks.png");
+
+        verifyNoInteractions(uploader);
+    }
+
+    @Test
+    void survivesAPhotoThatCannotBeDeleted() throws IOException {
+        when(uploader.destroy(any(), anyMap())).thenThrow(new IOException("offline"));
+
+        assertThatCode(() -> service.deletePhoto("https://example.com/pa-ayo/abc123.jpg")).doesNotThrowAnyException();
     }
 
     @Test

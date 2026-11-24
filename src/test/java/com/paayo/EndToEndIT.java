@@ -14,6 +14,7 @@ import static org.mockito.Mockito.verify;
 
 import com.microsoft.playwright.Browser;
 import com.microsoft.playwright.BrowserType;
+import com.microsoft.playwright.Dialog;
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.Playwright;
@@ -32,7 +33,9 @@ import java.io.InputStream;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.regex.Pattern;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -61,6 +64,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 @ActiveProfiles("seed")
 class EndToEndIT {
     private static HttpServer cloudinary;
+    private static final List<String> cloudinaryCalls = new CopyOnWriteArrayList<>();
     private static Playwright playwright;
     private static Browser browser;
 
@@ -83,8 +87,9 @@ class EndToEndIT {
         String base = "http://127.0.0.1:" + cloudinary.getAddress().getPort();
         cloudinary.createContext("/", exchange -> {
             exchange.getRequestBody().readAllBytes();
+            cloudinaryCalls.add(exchange.getRequestURI().getPath());
             byte[] body = exchange.getRequestMethod().equals("POST")
-                    ? ("{\"secure_url\":\"" + base + "/photo.png\"}").getBytes(StandardCharsets.UTF_8) : samplePhoto();
+                    ? ("{\"secure_url\":\"" + base + "/pa-ayo/photo.png\"}").getBytes(StandardCharsets.UTF_8) : samplePhoto();
             exchange.sendResponseHeaders(200, body.length);
             exchange.getResponseBody().write(body);
             exchange.close();
@@ -242,6 +247,31 @@ class EndToEndIT {
         assertThat(page.getByText("Refused")).hasCount(0);
     }
 
+    /** Only an admin can delete a report; its photo goes with it, after a confirmation. */
+    @Test
+    void adminDeletesAReport() throws IOException {
+        fillForm("Delete this report");
+        page.locator("#photoFile").setInputFiles(
+                new FilePayload("photo.jpg", "image/jpeg", Photos.of("image/jpeg", 1024).getBytes()));
+        submit();
+        assertThat(page.getByRole(AriaRole.BUTTON)).hasCount(0); // the public page has no delete button
+        logIn("first-password");
+        Locator row = page.locator("tbody tr").filter(new Locator.FilterOptions().setHasText("Delete this report"));
+        Locator delete = row.getByRole(AriaRole.BUTTON, new Locator.GetByRoleOptions().setName("Delete"));
+
+        page.onceDialog(Dialog::dismiss);
+        delete.click();
+        assertThat(row).hasCount(1);
+        page.onceDialog(Dialog::accept);
+        delete.click();
+
+        assertThat(page.getByText("Report deleted")).isVisible();
+        assertThat(row).hasCount(0);
+        assertThat(cloudinaryCalls).anyMatch(call -> call.endsWith("/destroy"));
+        page.navigate("/");
+        assertThat(page.getByText("Delete this report")).hasCount(0);
+    }
+
     /** TC-02: empty fields show inline errors. */
     @Test
     void showsInlineErrors() {
@@ -301,7 +331,7 @@ class EndToEndIT {
         for (String status : new String[] {"In Progress", "Resolved"}) {
             Locator row = page.locator("tbody tr").filter(new Locator.FilterOptions().setHasText("Status change check"));
             row.locator("select").selectOption(status.toUpperCase().replace(' ', '_'));
-            row.getByRole(AriaRole.BUTTON).click();
+            row.getByText("Update Status").click();
             assertThat(page.getByText("Status updated successfully")).isVisible();
             assertThat(row.locator("select option:checked")).hasText(status);
         }

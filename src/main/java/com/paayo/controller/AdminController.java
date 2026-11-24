@@ -150,6 +150,21 @@ public class AdminController {
         return TO_DASHBOARD;
     }
 
+    /** Deletes one report and its photo. */
+    @PostMapping("/deleteReport")
+    public String deleteReport(@RequestParam String reportId, RedirectAttributes redirect) {
+        try {
+            reportService.deleteReport(reportId);
+            redirect.addFlashAttribute("message", "Report deleted");
+        } catch (NotFoundException e) {
+            redirect.addFlashAttribute("error", e.getMessage());
+        } catch (PersistenceException e) {
+            log.error("Report could not be deleted", e);
+            redirect.addFlashAttribute("error", "Unable to delete the report right now. Please try again.");
+        }
+        return TO_DASHBOARD;
+    }
+
     /** Runs the news bot now and reports how many items were published. */
     @PostMapping("/news/fetch")
     public String triggerNewsFetch(RedirectAttributes redirect) {

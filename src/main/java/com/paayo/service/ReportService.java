@@ -1,7 +1,7 @@
 /*
  * File:        ReportService.java
  * Module:      Reports
- * Purpose:     Business rules for submitting, listing and updating reports (FR-01 to FR-05, FR-08).
+ * Purpose:     Business rules for submitting, listing, updating and deleting reports (FR-01 to FR-05, FR-08).
  * Responsible: Reuel Matthew Arcilla
  * Created:     2026-11-24
  */
@@ -64,16 +64,28 @@ public class ReportService {
         if (status == null) {
             throw new ValidationException("Select a status.");
         }
-        Report report = reportRepository.findById(id);
-        if (report == null) {
-            throw new NotFoundException("That report no longer exists.");
-        }
+        Report report = find(id);
         report.updateStatus(status);
         reportRepository.updateStatus(id, report.getStatus());
+    }
+
+    /** Deletes a report and its photo; the report must exist. */
+    public void deleteReport(String id) {
+        Report report = find(id);
+        reportRepository.delete(id);
+        imageStorageService.deletePhoto(report.getImageUrl());
     }
 
     /** Returns true when the report passes every field rule. */
     public boolean validateReport(Report report) {
         return report != null && report.isValid();
+    }
+
+    private Report find(String id) {
+        Report report = reportRepository.findById(id);
+        if (report == null) {
+            throw new NotFoundException("That report no longer exists.");
+        }
+        return report;
     }
 }

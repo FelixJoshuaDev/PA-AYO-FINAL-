@@ -594,6 +594,15 @@ a {
   cursor: wait;
 }
 
+.button-danger {
+  margin-top: .5rem;
+  background: #b42318;
+}
+
+.button-danger:hover {
+  background: #8f1c13;
+}
+
 .button-wide {
   width: 100%;
   margin-top: 1.5rem;

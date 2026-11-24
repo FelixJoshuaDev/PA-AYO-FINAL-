@@ -73,11 +73,18 @@
                 <input type="hidden" name="reportId" th:value="${report.reportId}">
                 <button type="submit" class="button button-small">Update Status</button>
               </form>
+              <form method="post" th:action="@{/admin/deleteReport}"
+                    data-confirm="Delete this report and its photo? This cannot be undone.">
+                <input type="hidden" name="reportId" th:value="${report.reportId}">
+                <button type="submit" class="button button-small button-danger"
+                        th:aria-label="|Delete ${report.title}|">Delete</button>
+              </form>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
   </main>
+  <script th:src="@{/js/confirm.js}" defer></script>
 </body>
 </html>

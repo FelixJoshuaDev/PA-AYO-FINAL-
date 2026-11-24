@@ -55,4 +55,4 @@ On the emulator it also loads 6 invented news items (marked `[SAMPLE]`) and one 
 
 - **Quota:** check **Firestore > Usage**. Spark allows 50,000 reads and 20,000 writes per day; one dashboard load reads at most 110 documents.
 - **90-day clean-up:** in the console, filter `reports` by `status == RESOLVED`, delete those whose `updatedAt` is more than 90 days old, and delete their photos in Cloudinary (**Media Library > pa-ayo**).
-- **Spam or unsuitable photos:** delete the document in the console and its photo in Cloudinary.
+- **Spam or unsuitable photos:** an admin presses **Delete** on the admin page, which also removes the photo. If the site is down, delete the document in the console and its photo in Cloudinary.

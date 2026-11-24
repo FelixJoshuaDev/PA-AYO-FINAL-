@@ -72,6 +72,11 @@ public class ReportRepository {
         await(reports().document(id).update("status", status.name(), "updatedAt", Timestamp.now()));
     }
 
+    /** Deletes one report. */
+    public void delete(String id) {
+        await(reports().document(id).delete());
+    }
+
     private CollectionReference reports() {
         return firestore.collection(collectionName);
     }

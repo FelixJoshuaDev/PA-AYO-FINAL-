@@ -163,6 +163,35 @@ class AdminControllerTest {
     }
 
     @Test
+    void deletesAReport() throws Exception {
+        mvc.perform(post("/admin/deleteReport").param("reportId", "id1").with(user("admin")).with(csrf()))
+                .andExpect(redirectedUrl("/admin/dashboard")).andExpect(flash().attribute("message", "Report deleted"));
+
+        verify(reportService).deleteReport("id1");
+    }
+
+    @Test
+    void explainsWhyAReportWasNotDeleted() throws Exception {
+        doThrow(new NotFoundException("That report no longer exists.")).doThrow(new PersistenceException("down", null))
+                .when(reportService).deleteReport("id1");
+
+        mvc.perform(post("/admin/deleteReport").param("reportId", "id1").with(user("admin")).with(csrf()))
+                .andExpect(flash().attribute("error", "That report no longer exists."));
+        mvc.perform(post("/admin/deleteReport").param("reportId", "id1").with(user("admin")).with(csrf()))
+                .andExpect(flash().attribute("error", containsString("try again")));
+    }
+
+    @Test
+    void onlyAdminsCanUseTheAdminDelete() throws Exception {
+        mvc.perform(post("/admin/deleteReport").param("reportId", "id1").with(csrf()))
+                .andExpect(redirectedUrlPattern("**/admin/login"));
+        mvc.perform(post("/admin/deleteReport").param("reportId", "id1").with(user("admin")))
+                .andExpect(status().isForbidden());
+
+        verifyNoInteractions(reportService);
+    }
+
+    @Test
     void refusesAnUnknownStatus() throws Exception {
         mvc.perform(post("/admin/updateStatus").param("reportId", "id1").param("status", "DELETED")
                 .with(user("admin")).with(csrf())).andExpect(status().isBadRequest());

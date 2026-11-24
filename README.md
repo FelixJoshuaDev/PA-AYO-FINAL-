@@ -14,7 +14,7 @@ CpE 3121 Software Development Strategies, University of San Carlos, AY 2026–20
 - Filter by category and read the latest government news
 
 **Administrators**
-- Sign in, change a report's status (Reported, In Progress, Resolved) and run the news bot
+- Sign in, change a report's status (Reported, In Progress, Resolved), delete spam or unsuitable reports and run the news bot
 - Recover a forgotten password with a single-use email link that expires in 30 minutes
 
 **News bot**
@@ -134,15 +134,6 @@ mvn spring-boot:run -Dspring-boot.run.profiles=seed
 
 The emulator forgets its data when it stops.
 
-### Remove a report
-
-Only the project team can remove reports; the website has no delete button (SRS 5.2).
-
-- **Local:** open <http://127.0.0.1:4000/firestore> while a local configuration is running, open `reports`, choose the report and use its menu to delete the document.
-- **Production:** do the same in the Firebase Console.
-
-Then delete its photo in Cloudinary, in the `pa-ayo` folder.
-
 ## Run the tests
 
 Unit and web tests, with the coverage gate. Nothing else needs to be running:
@@ -187,9 +178,10 @@ Calls only go down: controller → service → repository.
 
 1. Open the site, choose **Admin Login** and sign in.
 2. Find a report, choose its new status and press **Update Status**. The public card changes on its next load.
-3. Press **Fetch Latest News Now** to run the news bot. The page shows how many items were added.
-4. Forgot your password? Choose **Forgot Password?** on the sign-in page and enter your username or registered email. The link works once, for 30 minutes.
-5. Press **Logout** when you are done.
+3. Press **Delete** to remove a spam or unsuitable report with its photo. This cannot be undone.
+4. Press **Fetch Latest News Now** to run the news bot. The page shows how many items were added.
+5. Forgot your password? Choose **Forgot Password?** on the sign-in page and enter your username or registered email. The link works once, for 30 minutes.
+6. Press **Logout** when you are done.
 
 The admin page shows the newest 100 reports.
 

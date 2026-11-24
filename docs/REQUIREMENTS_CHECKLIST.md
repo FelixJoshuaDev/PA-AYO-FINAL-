@@ -62,6 +62,7 @@ Paths are shortened: `java/` is `src/main/java/com/paayo/`, `templates/` and `st
 | 40 | 30 reports, 6 news items, 2 admins as sample data | DDS 10.2 | `java/config/SampleDataLoader`, `AdminSeeder` | `EndToEndIT.sampleDataIsComplete` | Done |
 | 41 | Test cases TC-01 to TC-17 | SRS 6.2, PROP | See the next table | | TC-15 and UAT pending |
 | 42 | Purge Resolved reports older than 90 days | SRS 5.2, DDS 9.4, PROP | `docs/DATABASE_SETUP.md` (Maintenance) | | Manual |
+| 43 | An authenticated admin deletes a report and its photo, after a confirmation | Team decision, 25 Nov 2026; supports PROP Risk 7 and Rollback Plan | `AdminController.deleteReport`, `ReportService.deleteReport`, `ReportRepository.delete`, `ImageStorageService.deletePhoto`, `templates/admin/dashboard.html`, `static/js/confirm.js` | `AdminControllerTest`, `ReportServiceTest`, `ImageStorageServiceTest`, `RepositoryIT`, `EndToEndIT`; real photo deletion checked on Cloudinary | Done |
 
 ## Test cases
 
@@ -95,6 +96,7 @@ Record the observed results in the team's QA report during Phase 4.
 | Port 587 or 465 for email (SRS Appendix B #11) | Brevo on port 2525 | Render's free plan blocks 25, 465 and 587 |
 | DPWH Region VII and Mandaue PIO pages (DDS 9.1) | Province of Cebu pages | See `docs/NEWS_SOURCES.md` |
 | All news in the sidebar (SRS 3.8, mockup S1) | The newest four are Hot News cards in the main area; older items stay in the sidebar | Team decision on 25 Nov 2026; FR-07 is unchanged |
+| Spam removed only in the Firebase Console (SRS 5.2, PROP Rollback Plan) | Admins also have a Delete button; residents do not | Team decision on 25 Nov 2026; accounts for residents stay out of scope |
 | No keyword filter | Keyword list for infrastructure news | FR-06 asks for infrastructure advisories, and the source is general |
 | Article text comes from the listing (SRS 3.7.3) | Read from the article page when the listing has none | The listings show only titles |
 | 15-minute reset link (mockup) | 30 minutes | FR-13 and NFR-06 |
