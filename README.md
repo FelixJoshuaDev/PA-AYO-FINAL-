@@ -102,13 +102,13 @@ Photos and reset emails also need the Cloudinary and Brevo values; see [docs/DEP
 
 1. Open the project folder in VS Code and wait until the Java extension has finished loading.
 2. Press `Shift+Cmd+D` (Run and Debug), choose a configuration in the list at the top and press the green arrow. `F5` repeats the last one.
-3. Open <http://localhost:8080>. Press the red square to stop.
+3. Open <http://localhost:8080>. Press the red square to stop. The emulator keeps running in VS Code's terminal panel and forgets its data when that closes.
 
 | Configuration | Database | Needs |
 |---|---|---|
 | Pa-Ayo (real data) | Your Firebase project: real reports and news | `secrets/firebase-service-account.json` |
-| Pa-Ayo (local test database) | Local emulator, empty | The emulator command below |
-| Pa-Ayo (local, with sample reports) | Local emulator, 30 sample reports | The emulator command below |
+| Pa-Ayo (local test database) | Local emulator, empty | Nothing; VS Code starts the emulator |
+| Pa-Ayo (local, with sample reports) | Local emulator, 30 sample reports | Nothing; VS Code starts the emulator |
 
 ### From the terminal
 

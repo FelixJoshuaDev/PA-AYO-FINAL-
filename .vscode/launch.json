@@ -19,7 +19,8 @@
       "type": "java",
       "request": "launch",
       "mainClass": "com.paayo.PaAyoApplication",
-      "cwd": "${workspaceFolder}"
+      "cwd": "${workspaceFolder}",
+      "preLaunchTask": "Start local database"
     },
     {
       "name": "Pa-Ayo (local, with sample reports)",
@@ -27,7 +28,8 @@
       "request": "launch",
       "mainClass": "com.paayo.PaAyoApplication",
       "cwd": "${workspaceFolder}",
-      "vmArgs": "-Dspring.profiles.active=seed"
+      "vmArgs": "-Dspring.profiles.active=seed",
+      "preLaunchTask": "Start local database"
     }
   ]
 }
