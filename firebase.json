@@ -1,10 +1,13 @@
 // File:        firebase.json
 // Module:      Database
-// Purpose:     Firebase CLI settings: rules, indexes and the local Firestore emulator on port 8085.
+// Purpose:     Firebase CLI settings: free Standard database in Singapore, rules, indexes and the local emulator.
 // Responsible: Felix Joshua H. Abing
 // Created:     2026-11-24
 {
   "firestore": {
+    "database": "(default)",
+    "location": "asia-southeast1",
+    "edition": "standard",
     "rules": "firestore.rules",
     "indexes": "firestore.indexes.json"
   },

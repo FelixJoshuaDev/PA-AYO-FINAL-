@@ -14,10 +14,8 @@ The emulator does not check indexes. Test the category filter on production once
 
 ## Production (Firebase Spark plan, free, no credit card)
 
-1. Go to <https://console.firebase.google.com>, choose **Create a project** and stay on the **Spark** plan. Google Analytics is not needed.
-2. Open **Build > Firestore Database > Create database**. Choose **Standard edition**, location **asia-southeast1 (Singapore)** and **production mode**. The location cannot be changed later.
-3. Open **Project settings > Service accounts > Generate new private key**. Save the file as `secrets/firebase-service-account.json` inside the project. Git ignores it. Never commit or share it.
-4. Deploy the deny-all rules and the index, replacing `YOUR_PROJECT_ID`:
+1. Go to <https://console.firebase.google.com>, choose **Create a project** and stay on the **Spark** plan. Turn Google Analytics off; it is not needed. Do not create a database there.
+2. Sign in and deploy, replacing `YOUR_PROJECT_ID`:
 
    ```bash
    npx -y firebase-tools@15 login
@@ -27,9 +25,11 @@ The emulator does not check indexes. Test the category filter on production once
    npx -y firebase-tools@15 deploy --only firestore --project YOUR_PROJECT_ID
    ```
 
-5. In **Firestore > Indexes**, wait until the `reports` index (category ascending, createdAt descending) shows **Enabled**.
-6. In **Firestore > Rules > Rules Playground**, simulate an unauthenticated `get` on `/reports/any` and confirm it is denied.
-7. To use this database from your Mac, remove `FIRESTORE_EMULATOR_HOST` from `.env` and add:
+   This creates the `(default)` database and deploys the deny-all rules and the index. `firebase.json` sets the **Standard** edition and the location **asia-southeast1 (Singapore)**, which cannot be changed later.
+3. In **Firestore > Indexes**, wait until the `reports` index (category ascending, createdAt descending) shows **Enabled**.
+4. In **Firestore > Rules > Rules Playground**, simulate an unauthenticated `get` on `/reports/any` and confirm it is denied.
+5. Open **Project settings > Service accounts > Generate new private key**. Save the file as `secrets/firebase-service-account.json` inside the project. Git ignores it. Never commit or share it.
+6. To use this database from your Mac, remove `FIRESTORE_EMULATOR_HOST` from `.env`, set your real `ADMIN_*` values (see "First administrator") and add:
 
    ```
    FIREBASE_CREDENTIALS_PATH=secrets/firebase-service-account.json
