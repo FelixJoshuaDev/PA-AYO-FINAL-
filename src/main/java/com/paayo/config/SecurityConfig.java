@@ -19,6 +19,7 @@ import org.springframework.security.web.access.AccessDeniedHandlerImpl;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.security.web.context.SecurityContextRepository;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 /** Spring Security rules. The login itself is handled by AdminController. */
 @Configuration
@@ -36,6 +37,8 @@ public class SecurityConfig {
                 .exceptionHandling(errors -> errors
                         .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint(LOGIN_URL))
                         .accessDeniedHandler(accessDeniedHandler()))
+                // A cookie token survives the restarts and sleeps of a free Render instance; a session token would not.
+                .csrf(csrf -> csrf.csrfTokenRepository(new CookieCsrfTokenRepository()))
                 .logout(logout -> logout.logoutUrl("/admin/logout").logoutSuccessUrl("/"))
                 .build();
     }

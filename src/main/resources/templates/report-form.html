@@ -1,0 +1,77 @@
+<!--/*
+  File:        report-form.html
+  Module:      Report submission form (S2)
+  Purpose:     Collects a report title, category, location, description and optional photo.
+  Responsible: Reuel Matthew Arcilla
+  Created:     2026-11-24
+*/-->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Report an Issue')}"></head>
+<body>
+  <main class="centered">
+    <!--/* The token is also in the URL because an oversized upload is discarded before its fields can be read. */-->
+    <form class="panel panel-form" method="post" enctype="multipart/form-data" novalidate
+          th:action="@{/reports/new(_csrf=${_csrf.token})}" th:object="${report}">
+      <h1>Report an Issue</h1>
+      <p class="subtitle muted">Please provide details to help us resolve the issue</p>
+      <p class="privacy-notice">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v7M12 17v.5"/></svg>
+        Prototype System: Do not enter sensitive personal information.
+      </p>
+      <p class="banner banner-error" role="alert" th:if="${saveError}" th:text="${saveError}"></p>
+
+      <div class="field">
+        <label for="title">Report Title*</label>
+        <input type="text" th:field="*{title}" maxlength="100" required placeholder="e.g., Clogged Storm Drain"
+               aria-describedby="title-error" th:attr="aria-invalid=${#fields.hasErrors('title')}">
+        <p class="field-error" id="title-error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></p>
+      </div>
+
+      <div class="field">
+        <label for="category">Issue Category*</label>
+        <select th:field="*{category}" required
+                aria-describedby="category-error" th:attr="aria-invalid=${#fields.hasErrors('category')}">
+          <option value="">Select a Category</option>
+          <option th:each="option : ${categories}" th:value="${option}" th:text="${option.displayName}">Sanitation</option>
+        </select>
+        <p class="field-error" id="category-error" th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></p>
+      </div>
+
+      <div class="field">
+        <label for="location">Location*</label>
+        <input type="text" th:field="*{location}" maxlength="200" required
+               placeholder="e.g., A.S. Fortuna St., Banilad, Mandaue City"
+               aria-describedby="location-error" th:attr="aria-invalid=${#fields.hasErrors('location')}">
+        <p class="field-error" id="location-error" th:if="${#fields.hasErrors('location')}" th:errors="*{location}"></p>
+      </div>
+
+      <div class="field">
+        <label for="description">Description*</label>
+        <textarea th:field="*{description}" rows="4" maxlength="1000" required
+                  placeholder="Describe the issue in detail (e.g., what happened, when, and specific details)"
+                  aria-describedby="description-error" th:attr="aria-invalid=${#fields.hasErrors('description')}"></textarea>
+        <p class="field-error" id="description-error" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></p>
+      </div>
+
+      <div class="field">
+        <span id="photo-label">Attach Photo (Optional)</span>
+        <label class="dropzone" id="dropzone">
+          <input type="file" id="photoFile" name="photoFile" accept="image/jpeg,image/png,image/webp"
+                 aria-labelledby="photo-label photo-hint" aria-describedby="photo-error">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V4M8 8l4-4 4 4M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg>
+          <img id="photo-preview" alt="Preview of the selected photo" hidden>
+          <span id="photo-hint">Drag &amp; drop a photo here, or click to upload (JPEG, PNG or WebP, max 5 MB)</span>
+        </label>
+        <p class="field-error" id="photo-error" role="alert" th:text="${photoError}"></p>
+      </div>
+
+      <div class="actions">
+        <a class="button-link" th:href="@{/}">Cancel</a>
+        <button type="submit" class="button">Submit Report</button>
+      </div>
+    </form>
+  </main>
+  <script th:src="@{/js/report-form.js}" defer></script>
+</body>
+</html>

@@ -1,0 +1,619 @@
+/*
+ * File:        style.css
+ * Module:      Public and admin pages
+ * Purpose:     Look and layout of every screen, based on the approved mockups.
+ * Responsible: Ythan Joshua Costelo
+ * Created:     2026-11-24
+ */
+@font-face {
+  font-family: "Work Sans";
+  src: url("/fonts/work-sans.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Roboto Condensed";
+  src: url("/fonts/roboto-condensed.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+:root {
+  --navy: #1c3566;
+  --blue: #27478e;
+  --blue-dark: #1b3470;
+  --text: #111827;
+  --muted: #565f6d;
+  --line: #2b3440;
+  --soft: #d9e3ed;
+  --error: #a4161a;
+  --heading: "Work Sans", system-ui, sans-serif;
+  --body: "Roboto Condensed", "Arial Narrow", system-ui, sans-serif;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(160deg, #dde6f0 0%, #d4e1ec 35%, #b5cbe0 65%, #aac2da 100%) fixed;
+  color: var(--text);
+  font: 17px/1.4 var(--body);
+}
+
+h1, h2, h3, p {
+  margin: 0;
+}
+
+h1 {
+  font: 500 2.1rem/1.15 var(--heading);
+}
+
+img {
+  display: block;
+}
+
+a {
+  color: #1b4a94;
+}
+
+:focus-visible {
+  outline: 3px solid #f08c00;
+  outline-offset: 2px;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+/* Header */
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: .75rem clamp(1rem, 4vw, 3.5rem);
+  background: #fff;
+  box-shadow: 0 2px 5px rgb(40 60 90 / 35%);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.brand-logo {
+  width: 65px;
+  height: auto;
+}
+
+.brand-name, .brand-motto {
+  display: block;
+}
+
+.brand-name {
+  color: var(--navy);
+  font: 500 1.9rem/1.1 var(--heading);
+}
+
+.header-link {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--navy);
+  font: 400 1.2rem/1.4 var(--heading);
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.header-link:hover {
+  text-decoration: underline;
+}
+
+/* Public dashboard */
+.dashboard {
+  display: grid;
+  grid-template-columns: clamp(250px, 21vw, 350px) minmax(0, 1fr);
+  gap: clamp(1rem, 2.5vw, 3rem);
+  max-width: 1700px;
+  margin: 0 auto;
+  padding: 1.75rem clamp(1rem, 4vw, 5rem) 6rem;
+  align-items: start;
+}
+
+.news {
+  position: sticky;
+  top: 1.25rem;
+  border: 1px solid var(--line);
+  background: #fff;
+}
+
+.news-heading {
+  padding: .7rem .75rem;
+  border-bottom: 1px solid var(--line);
+  background: #d9d9d9;
+  font: 400 1.05rem/1.2 var(--heading);
+  text-transform: uppercase;
+}
+
+.news-list {
+  max-height: calc(100vh - 6rem);
+  overflow-y: auto;
+  padding: 0 1rem;
+}
+
+.news-item {
+  padding: .9rem 0 .5rem;
+  border-bottom: 1px solid #c3c9d1;
+  overflow-wrap: anywhere;
+}
+
+.news-item:last-child {
+  border-bottom: 0;
+}
+
+.news-top {
+  display: flex;
+  align-items: center;
+  gap: .85rem;
+}
+
+.news-image {
+  flex: 0 0 76px;
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #d9d9d9;
+}
+
+.news-source {
+  color: var(--muted);
+  font-size: .8rem;
+}
+
+.news-title {
+  font: 500 1.05rem/1.25 var(--body);
+}
+
+.news-summary {
+  margin-top: .5rem;
+}
+
+.news-bottom {
+  display: flex;
+  justify-content: space-between;
+  gap: .5rem;
+  margin-top: .35rem;
+  font-size: .9rem;
+}
+
+.subtitle {
+  margin-top: .15rem;
+}
+
+.pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .7rem;
+  margin: 1rem 0;
+}
+
+.pill {
+  padding: .35rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: #fff;
+  color: var(--text);
+  font-size: 1.1rem;
+  text-decoration: none;
+}
+
+.pill:hover {
+  background: #eaf0f8;
+}
+
+.pill[aria-current] {
+  border-color: var(--blue);
+  background: var(--blue);
+  color: #fff;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.25rem 1.5rem;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  min-height: 330px;
+  padding: .75rem;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: #fff;
+  overflow-wrap: anywhere;
+}
+
+.card-badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: .4rem;
+  margin-bottom: .5rem;
+}
+
+.badge {
+  padding: .15rem .6rem;
+  border-radius: 4px;
+  background: #d9d9d9;
+  font-size: .9rem;
+  white-space: nowrap;
+}
+
+.badge-sanitation {
+  background: #c6d9bf;
+}
+
+.badge-roadworks {
+  background: #f9d49c;
+}
+
+.badge-electrical {
+  background: #ece8a4;
+}
+
+.badge-reported {
+  background: #f5b8b8;
+}
+
+.badge-in_progress {
+  background: #f6bf85;
+}
+
+.badge-resolved {
+  background: #c9e6c3;
+}
+
+.card-photo {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  border: 2px solid #56657d;
+  object-fit: cover;
+  background: #ecf1f6;
+}
+
+.card-title, .card-description, .card-location {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.card-title {
+  margin-top: .6rem;
+  -webkit-line-clamp: 2;
+  font: 500 1.15rem/1.25 var(--heading);
+}
+
+.card-description {
+  margin-top: .25rem;
+  -webkit-line-clamp: 3;
+  font-size: .95rem;
+}
+
+.card-location {
+  margin-top: auto;
+  padding-top: .75rem;
+  -webkit-line-clamp: 2;
+  font-size: .95rem;
+}
+
+.card-date {
+  font-size: .95rem;
+}
+
+.fab {
+  position: fixed;
+  right: 2rem;
+  bottom: 1.5rem;
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--blue-dark);
+  color: #fff;
+  font: 400 2.2rem/1 var(--heading);
+  text-decoration: none;
+  box-shadow: 0 3px 8px rgb(20 35 60 / 40%);
+}
+
+.fab:hover {
+  background: var(--blue);
+}
+
+.empty {
+  padding: 1rem 0;
+}
+
+.banner {
+  margin: 0 0 1rem;
+  padding: .7rem 1rem;
+  border-radius: 4px;
+}
+
+.banner-ok {
+  background: #d5efd0;
+}
+
+.banner-warning {
+  background: #fbe3c2;
+}
+
+.banner-error {
+  background: #fbd9d9;
+}
+
+/* Forms and centered panels */
+.centered {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  padding: 4.5rem 1rem 2rem;
+}
+
+.back-link {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.75rem;
+  color: var(--navy);
+  font: 400 1.15rem/1.4 var(--heading);
+  text-decoration: none;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+.panel {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: #fff;
+}
+
+.panel-form {
+  max-width: 700px;
+  padding: 2.5rem clamp(1.25rem, 5vw, 3rem) 1.75rem;
+}
+
+.panel-small {
+  max-width: 520px;
+  padding: 2.5rem clamp(1.25rem, 6vw, 4rem);
+}
+
+.panel-small h1, .panel-small > .subtitle, .panel-small > p {
+  text-align: center;
+}
+
+.panel-icon {
+  display: block;
+  width: 84px;
+  height: 84px;
+  margin: 0 auto 1rem;
+}
+
+.panel-icon, .dropzone svg, .privacy-notice svg, .input-icon svg, .reveal svg, .button svg {
+  fill: none;
+  stroke: currentcolor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.panel-icon {
+  color: #4d5a70;
+  stroke-width: 1;
+}
+
+.privacy-notice {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  margin-top: .75rem;
+  padding: .4rem .9rem .4rem .5rem;
+  border-radius: 4px;
+  background: #fbe3c2;
+}
+
+.privacy-notice svg {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  fill: #f4a64a;
+}
+
+.field {
+  margin-top: 1.1rem;
+  font-family: var(--heading);
+}
+
+.field label, .field > span {
+  display: block;
+  margin-bottom: .25rem;
+}
+
+.field input:not([type="file"]), .field select, .field textarea {
+  width: 100%;
+  padding: .6rem .9rem;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: #fff;
+  color: inherit;
+  font: 400 1rem/1.4 var(--heading);
+}
+
+.field ::placeholder {
+  color: #667080;
+  opacity: 1;
+}
+
+.field textarea {
+  resize: vertical;
+}
+
+.field [aria-invalid="true"] {
+  border-color: var(--error);
+  box-shadow: 0 0 0 1px var(--error);
+}
+
+.field-error {
+  margin-top: .25rem;
+  color: var(--error);
+  font-size: .95rem;
+}
+
+.field-hint {
+  margin-top: .35rem;
+  color: var(--muted);
+  font-size: .9rem;
+}
+
+.field .dropzone {
+  position: relative;
+  display: grid;
+  place-items: center;
+  gap: .5rem;
+  margin: 0;
+  padding: 1.5rem 1rem;
+  border: 2px dashed var(--line);
+  background: var(--soft);
+  text-align: center;
+  cursor: pointer;
+}
+
+.dropzone:hover, .dropzone.dragging {
+  background: #c8d7e6;
+}
+
+.dropzone:focus-within {
+  outline: 3px solid #f08c00;
+  outline-offset: 2px;
+}
+
+.dropzone input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.dropzone svg {
+  width: 32px;
+  height: 32px;
+}
+
+.dropzone img {
+  max-width: 100%;
+  max-height: 180px;
+}
+
+.dropzone img[hidden] {
+  display: none;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1.75rem;
+  margin-top: 1.5rem;
+}
+
+.button {
+  padding: .65rem 1rem;
+  border: 0;
+  border-radius: 4px;
+  background: var(--blue);
+  color: #fff;
+  font: 400 1.05rem/1.3 var(--heading);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.button:hover {
+  background: var(--blue-dark);
+}
+
+.button-wide {
+  width: 100%;
+  margin-top: 1.5rem;
+  padding: .95rem;
+}
+
+.button-link {
+  color: var(--muted);
+  font-family: var(--heading);
+  text-decoration: none;
+}
+
+.button-link:hover {
+  text-decoration: underline;
+}
+
+/* Responsive rule: 4 columns from 1200 px, 2 from 768 px, otherwise 1 */
+@media (max-width: 1199px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767px) {
+  .dashboard {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .news {
+    position: static;
+  }
+
+  .news-list {
+    max-height: 340px;
+  }
+
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .brand-logo {
+    width: 48px;
+  }
+
+  .brand-name {
+    font-size: 1.5rem;
+  }
+
+  .brand-motto {
+    font-size: .85rem;
+  }
+
+  .header-link {
+    font-size: 1rem;
+  }
+
+  .fab {
+    right: 1rem;
+    bottom: 1rem;
+    width: 60px;
+    height: 60px;
+  }
+}
