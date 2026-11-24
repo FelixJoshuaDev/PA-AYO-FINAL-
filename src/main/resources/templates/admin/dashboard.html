@@ -22,6 +22,12 @@
         <h1>Admin Control Dashboard</h1>
         <p class="subtitle">Manage and track community infrastructure reports.</p>
       </div>
+      <form method="post" th:action="@{/admin/news/fetch}">
+        <button type="submit" class="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 0 1 14-5l2 2M20 4v5h-5M20 12a8 8 0 0 1-14 5l-2-2M4 20v-5h5"/></svg>
+          Fetch Latest News Now
+        </button>
+      </form>
     </div>
 
     <p class="banner banner-ok" role="status" th:if="${message}" th:text="${message}"></p>

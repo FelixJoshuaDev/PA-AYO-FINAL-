@@ -36,6 +36,7 @@ import com.paayo.model.Category;
 import com.paayo.model.Report;
 import com.paayo.model.ReportStatus;
 import com.paayo.service.AdminAuthService;
+import com.paayo.service.NewsService;
 import com.paayo.service.ReportService;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -56,6 +57,8 @@ class AdminControllerTest {
     private MockMvc mvc;
     @MockitoBean
     private ReportService reportService;
+    @MockitoBean
+    private NewsService newsService;
     @MockitoBean
     private AdminAuthService adminAuthService;
 
@@ -226,5 +229,25 @@ class AdminControllerTest {
 
         mvc.perform(post("/admin/login").param("username", "a").param("password", "b").with(csrf()))
                 .andExpect(status().isServiceUnavailable());
+    }
+
+    /** UC-04: an admin runs the news bot and sees the count, or a warning when nothing is new. */
+    @Test
+    void runsTheNewsBot() throws Exception {
+        when(newsService.fetchAndPublishNews()).thenReturn(3, 0);
+
+        mvc.perform(post("/admin/news/fetch").with(user("admin")).with(csrf()))
+                .andExpect(redirectedUrl("/admin/dashboard"))
+                .andExpect(flash().attribute("message", "3 new item(s) published"));
+        mvc.perform(post("/admin/news/fetch").with(user("admin")).with(csrf()))
+                .andExpect(flash().attribute("warning", containsString("0 new items")));
+    }
+
+    /** UC-04 E1: a signed-out request does not run the bot. */
+    @Test
+    void protectsTheNewsBot() throws Exception {
+        mvc.perform(post("/admin/news/fetch").with(csrf())).andExpect(redirectedUrlPattern("**/admin/login"));
+
+        verifyNoInteractions(newsService);
     }
 }

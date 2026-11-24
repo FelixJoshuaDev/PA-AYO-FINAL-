@@ -1,7 +1,7 @@
 /*
  * File:        AdminController.java
  * Module:      Admin pages
- * Purpose:     Serves admin login, password recovery and the report management dashboard (UC-03, UC-07).
+ * Purpose:     Serves admin login, password recovery and the report management dashboard (UC-03, UC-04, UC-07).
  * Responsible: Felix Joshua H. Abing
  * Created:     2026-11-24
  */
@@ -12,6 +12,7 @@ import com.paayo.exception.PersistenceException;
 import com.paayo.exception.ValidationException;
 import com.paayo.model.ReportStatus;
 import com.paayo.service.AdminAuthService;
+import com.paayo.service.NewsService;
 import com.paayo.service.ReportService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -41,13 +42,15 @@ public class AdminController {
     private static final String TO_DASHBOARD = "redirect:/admin/dashboard";
 
     private final ReportService reportService;
+    private final NewsService newsService;
     private final AdminAuthService adminAuthService;
     private final SecurityContextRepository securityContextRepository;
 
-    /** Uses the report and authentication services and the login session store. */
-    public AdminController(ReportService reportService, AdminAuthService adminAuthService,
+    /** Uses the report, news and authentication services and the login session store. */
+    public AdminController(ReportService reportService, NewsService newsService, AdminAuthService adminAuthService,
                            SecurityContextRepository securityContextRepository) {
         this.reportService = reportService;
+        this.newsService = newsService;
         this.adminAuthService = adminAuthService;
         this.securityContextRepository = securityContextRepository;
     }
@@ -143,6 +146,19 @@ public class AdminController {
         } catch (PersistenceException e) {
             log.error("Status could not be updated", e);
             redirect.addFlashAttribute("error", "Unable to update the status right now. Please try again.");
+        }
+        return TO_DASHBOARD;
+    }
+
+    /** Runs the news bot now and reports how many items were published. */
+    @PostMapping("/news/fetch")
+    public String triggerNewsFetch(RedirectAttributes redirect) {
+        int published = newsService.fetchAndPublishNews();
+        if (published > 0) {
+            redirect.addFlashAttribute("message", published + " new item(s) published");
+        } else {
+            redirect.addFlashAttribute("warning",
+                    "0 new items. The sources have nothing new or could not be reached. Existing news stays visible.");
         }
         return TO_DASHBOARD;
     }
