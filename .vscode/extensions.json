@@ -1,0 +1,11 @@
+// File:        extensions.json
+// Module:      Project setup
+// Purpose:     VS Code extensions recommended for this project (all free).
+// Responsible: Felix Joshua H. Abing
+// Created:     2026-11-24
+{
+  "recommendations": [
+    "vscjava.vscode-java-pack",
+    "vmware.vscode-boot-dev-pack"
+  ]
+}

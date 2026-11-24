@@ -1,0 +1,18 @@
+// File:        firestore.indexes.json
+// Module:      Database
+// Purpose:     IDX-01, the composite index behind the category filter (newest first).
+// Responsible: Felix Joshua H. Abing
+// Created:     2026-11-24
+{
+  "indexes": [
+    {
+      "collectionGroup": "reports",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "category", "order": "ASCENDING" },
+        { "fieldPath": "createdAt", "order": "DESCENDING" }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}
