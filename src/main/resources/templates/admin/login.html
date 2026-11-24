@@ -1,0 +1,45 @@
+<!--/*
+  File:        login.html
+  Module:      Admin login (S3)
+  Purpose:     Admin sign-in form with a link to password recovery.
+  Responsible: Felix Joshua H. Abing
+  Created:     2026-11-24
+*/-->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Admin Sign In')}"></head>
+<body>
+  <a th:replace="~{fragments :: back}"></a>
+  <main class="centered">
+    <form class="panel panel-small" method="post" th:action="@{/admin/login}">
+      <svg class="panel-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10.5"/><circle cx="12" cy="9.5" r="3.5"/><path d="M4 19c2-2.5 4.5-3.5 8-3.5s6 1 8 3.5"/></svg>
+      <h1>ADMIN SIGN IN</h1>
+      <p class="subtitle muted">Authorized barangay officials and maintainers only</p>
+      <p class="banner banner-ok" role="status" th:if="${message}" th:text="${message}"></p>
+      <p class="banner banner-error" role="alert" th:if="${error}" th:text="${error}"></p>
+
+      <div class="field">
+        <label for="username">Username</label>
+        <div class="input-group">
+          <span class="input-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M5 21v-1a6 6 0 0 1 6-5h2a6 6 0 0 1 6 5v1z"/></svg></span>
+          <input type="text" id="username" name="username" required autocomplete="username" autocapitalize="none"
+                 placeholder="Enter your username">
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="password">Password</label>
+        <div class="input-group">
+          <span class="input-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3M12 14v3"/></svg></span>
+          <input type="password" id="password" name="password" required autocomplete="current-password" placeholder="Enter your password">
+          <button type="button" class="reveal" aria-label="Show password" aria-pressed="false" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.5-6.5 10-6.5S22 12 22 12s-3.5 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></button>
+        </div>
+        <a class="forgot-link" th:href="@{/admin/forgot-password}">Forgot Password?</a>
+      </div>
+
+      <button type="submit" class="button button-wide">SIGN IN</button>
+    </form>
+  </main>
+  <script th:src="@{/js/password-toggle.js}" defer></script>
+</body>
+</html>

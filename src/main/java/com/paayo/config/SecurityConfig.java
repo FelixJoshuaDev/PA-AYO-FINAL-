@@ -60,7 +60,7 @@ public class SecurityConfig {
         AccessDeniedHandler forbidden = new AccessDeniedHandlerImpl();
         return (request, response, denied) -> {
             boolean signedOut = SecurityContextHolder.getContext().getAuthentication() == null;
-            if (signedOut && request.getServletPath().startsWith("/admin/")) {
+            if (signedOut && request.getRequestURI().startsWith(request.getContextPath() + "/admin/")) {
                 response.sendRedirect(LOGIN_URL);
             } else {
                 forbidden.handle(request, response, denied);

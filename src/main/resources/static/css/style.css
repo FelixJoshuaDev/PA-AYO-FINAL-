@@ -570,6 +570,160 @@ a {
   text-decoration: underline;
 }
 
+/* Admin pages */
+.panel-small .banner {
+  margin: 1rem 0 0;
+}
+
+.panel-small .field:first-of-type {
+  margin-top: 2rem;
+}
+
+.panel-small .field-hint {
+  margin-top: .4rem;
+}
+
+.input-group {
+  position: relative;
+  display: flex;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+}
+
+.field .input-group input {
+  flex: 1;
+  min-width: 0;
+  padding-right: 3rem;
+  border: 0;
+}
+
+.input-icon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 48px;
+  border-right: 1px solid var(--line);
+}
+
+.input-icon svg, .reveal svg {
+  width: 22px;
+  height: 22px;
+}
+
+.reveal {
+  position: absolute;
+  inset: 0 0 0 auto;
+  width: 48px;
+  border: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.reveal[aria-pressed="true"] {
+  color: var(--blue);
+}
+
+.forgot-link {
+  display: block;
+  width: fit-content;
+  margin: .6rem 0 0 auto;
+}
+
+.panel-link {
+  margin-top: 1.25rem;
+}
+
+.admin {
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 2rem clamp(1rem, 4vw, 3.5rem) 4rem;
+}
+
+.admin-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.admin-top .button {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+}
+
+.admin-top .button svg {
+  width: 20px;
+  height: 20px;
+}
+
+.table-wrap {
+  overflow-x: auto;
+  border: 1px solid #7b8796;
+  border-radius: 4px;
+  background: #fff;
+}
+
+table {
+  width: 100%;
+  min-width: 980px;
+  border-collapse: collapse;
+}
+
+th {
+  padding: .75rem 1rem;
+  border-bottom: 1px solid #7b8796;
+  background: #d9d9d9;
+  color: var(--navy);
+  font-size: 1.1rem;
+  font-weight: 400;
+  text-align: left;
+}
+
+td {
+  padding: .9rem 1rem;
+  vertical-align: top;
+  overflow-wrap: anywhere;
+}
+
+td:nth-child(3), td:nth-child(4) {
+  min-width: 150px;
+}
+
+.nowrap, td .badge {
+  white-space: nowrap;
+}
+
+.badge-upper {
+  text-transform: uppercase;
+}
+
+.clamp {
+  display: -webkit-box;
+  min-width: 170px;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+td select {
+  padding: .35rem .5rem;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: #fff;
+  color: inherit;
+  font: inherit;
+}
+
+.button-small {
+  padding: .35rem .9rem;
+  font-size: .95rem;
+  white-space: nowrap;
+}
+
 /* Responsive rule: 4 columns from 1200 px, 2 from 768 px, otherwise 1 */
 @media (max-width: 1199px) {
   .grid {

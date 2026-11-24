@@ -1,0 +1,77 @@
+<!--/*
+  File:        dashboard.html
+  Module:      Admin dashboard (S4)
+  Purpose:     Lists every report with its status control and the news fetch button.
+  Responsible: Felix Joshua H. Abing
+  Created:     2026-11-24
+*/-->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Admin Control Dashboard')}"></head>
+<body>
+  <header class="site-header">
+    <a th:replace="~{fragments :: brand}"></a>
+    <form method="post" th:action="@{/admin/logout}">
+      <button type="submit" class="header-link">Logout</button>
+    </form>
+  </header>
+
+  <main class="admin">
+    <div class="admin-top">
+      <div>
+        <h1>Admin Control Dashboard</h1>
+        <p class="subtitle">Manage and track community infrastructure reports.</p>
+      </div>
+    </div>
+
+    <p class="banner banner-ok" role="status" th:if="${message}" th:text="${message}"></p>
+    <p class="banner banner-warning" role="status" th:if="${warning}" th:text="${warning}"></p>
+    <p class="banner banner-error" role="alert" th:if="${error}" th:text="${error}"></p>
+    <p class="banner banner-error" role="alert" th:if="${reports == null}">
+      Reports are unavailable right now. Please try again in a moment.
+    </p>
+
+    <div class="table-wrap" tabindex="0" role="region" aria-label="Community reports" th:if="${reports != null}">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Category</th>
+            <th scope="col">Title</th>
+            <th scope="col">Location</th>
+            <th scope="col">Description</th>
+            <th scope="col">Status</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:if="${reports.isEmpty()}">
+            <td colspan="7">No reports yet.</td>
+          </tr>
+          <tr th:each="report : ${reports}" th:with="formId=|status-${report.reportId}|">
+            <td class="nowrap"><time th:datetime="${report.createdAt}"
+                th:text="${#temporals.format(report.createdAt, 'MMM d, yyyy')}">Nov 13, 2026</time></td>
+            <td><span class="badge badge-upper" th:classappend="|badge-${#strings.toLowerCase(report.category.name())}|"
+                      th:text="${report.category.displayName}">Sanitation</span></td>
+            <td th:text="${report.title}">Title</td>
+            <td th:text="${report.location}">Location</td>
+            <td><div class="clamp" th:text="${report.description}" th:title="${report.description}">Description</div></td>
+            <td>
+              <select name="status" th:form="${formId}" th:aria-label="|Status of ${report.title}|">
+                <option th:each="status : ${statuses}" th:value="${status.name()}" th:text="${status.displayName}"
+                        th:selected="${status == report.status}">Reported</option>
+              </select>
+            </td>
+            <td>
+              <form method="post" th:id="${formId}" th:action="@{/admin/updateStatus}">
+                <input type="hidden" name="reportId" th:value="${report.reportId}">
+                <button type="submit" class="button button-small">Update Status</button>
+              </form>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</body>
+</html>
