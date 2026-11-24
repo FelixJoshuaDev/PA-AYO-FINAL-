@@ -14,14 +14,14 @@
     <a class="header-link" th:href="@{/admin/login}">Admin Login</a>
   </header>
 
-  <div class="dashboard">
+  <!--/* The newest items are the Hot News cards of the main area; the sidebar lists the older ones. */-->
+  <div class="dashboard" th:with="hotCount=4">
     <aside class="news" aria-labelledby="news-heading">
       <h2 id="news-heading" class="news-heading">Government News</h2>
       <div class="news-list" tabindex="0" role="region" aria-labelledby="news-heading">
         <p class="empty" th:if="${news == null}">News is unavailable right now. Please try again later.</p>
-        <p class="empty" th:if="${news != null and news.isEmpty()}">No government news yet.</p>
-        <article class="news-item" th:each="item, i : ${news}">
-          <p class="hot-tag" th:if="${i.first}">Hot News</p>
+        <p class="empty" th:if="${news != null and news.size() <= hotCount}">No other news yet.</p>
+        <article class="news-item" th:each="item, i : ${news}" th:if="${i.index >= hotCount}">
           <div class="news-top">
             <img class="news-image" th:src="${item.imageUrl} ?: @{/images/news-placeholder.png}" alt=""
                  loading="lazy" referrerpolicy="no-referrer"
@@ -32,7 +32,7 @@
             </div>
           </div>
           <p class="news-summary" th:text="${item.summary}">Summary</p>
-          <div class="news-bottom">
+          <div class="news-bottom" th:fragment="newsBottom(item)">
             <time th:datetime="${item.publishedDate}"
                   th:text="${#temporals.format(item.publishedDate, 'MMM d, yyyy')}">Nov 19, 2026</time>
             <a th:href="${item.sourceUrl}" target="_blank" rel="noopener noreferrer"
@@ -44,6 +44,21 @@
 
     <main class="reports">
       <p class="banner banner-ok" role="status" th:if="${message}" th:text="${message}"></p>
+
+      <section class="hot" aria-labelledby="hot-heading" th:if="${news != null and !news.isEmpty()}">
+        <h2 id="hot-heading" class="hot-heading">Hot News</h2>
+        <div class="grid hot-grid">
+          <article class="hot-card" th:each="item, i : ${news}" th:if="${i.index < hotCount}">
+            <div class="card-badges"><span class="badge badge-hot">Hot News</span></div>
+            <img class="card-photo" th:src="${item.imageUrl} ?: @{/images/news-placeholder.png}" alt=""
+                 referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='/images/news-placeholder.png'">
+            <p class="news-source" th:text="${item.sourceName}">Source</p>
+            <h3 class="card-title" th:text="${item.title}">Headline</h3>
+            <p class="card-description" th:text="${item.summary}">Summary</p>
+            <div th:replace="~{:: newsBottom(${item})}"></div>
+          </article>
+        </div>
+      </section>
 
       <h1>Community Reports</h1>
       <p class="subtitle">Check existing reports below before filing a new issue in your barangay</p>

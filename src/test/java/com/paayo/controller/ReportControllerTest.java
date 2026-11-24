@@ -36,6 +36,9 @@ import com.paayo.testutil.Photos;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Stream;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -106,13 +109,23 @@ class ReportControllerTest {
     }
 
     @Test
-    void marksOnlyTheNewestNewsAsHot() throws Exception {
-        when(newsService.getLatestNews(10)).thenReturn(List.of(newsItem("Newest"), newsItem("Older")));
+    void showsTheNewestFourNewsItemsAsHotNewsAndTheRestInTheSidebar() throws Exception {
+        when(newsService.getLatestNews(10)).thenReturn(Stream.of("N1", "N2", "N3", "N4", "N5", "N6")
+                .map(ReportControllerTest::newsItem).toList());
 
-        String page = mvc.perform(get("/")).andReturn().getResponse().getContentAsString();
+        String page = mvc.perform(get("/").param("category", "ROADWORKS"))
+                .andReturn().getResponse().getContentAsString();
+        Document html = Jsoup.parse(page);
 
-        assertThat(page.split("Hot News", -1)).hasSize(2);
-        assertThat(page.indexOf("Hot News")).isLessThan(page.indexOf("Newest"));
+        assertThat(html.select(".hot-card h3").eachText()).containsExactly("N1", "N2", "N3", "N4");
+        assertThat(html.select(".hot-card .badge").eachText()).containsOnly("Hot News");
+        assertThat(html.select(".news-item h3").eachText()).containsExactly("N5", "N6");
+    }
+
+    @Test
+    void hidesHotNewsWhenThereIsNone() throws Exception {
+        mvc.perform(get("/")).andExpect(content().string(not(containsString("Hot News"))))
+                .andExpect(content().string(containsString("No other news yet.")));
     }
 
     /** TC-04: the filter shows one category. */

@@ -106,9 +106,9 @@ Photos and reset emails also need the Cloudinary and Brevo values; see [docs/DEP
 
 | Configuration | Database | Needs |
 |---|---|---|
-| Pa-Ayo (real data) | Your Firebase project: real reports and news | `secrets/firebase-service-account.json` |
 | Pa-Ayo (local test database) | Local emulator, empty | Nothing; VS Code starts the emulator |
 | Pa-Ayo (local, with sample reports) | Local emulator, 30 sample reports | Nothing; VS Code starts the emulator |
+| Pa-Ayo (real data) | Your Firebase project: real reports and news | `secrets/firebase-service-account.json` |
 
 ### From the terminal
 
@@ -133,6 +133,15 @@ mvn spring-boot:run -Dspring-boot.run.profiles=seed
 ```
 
 The emulator forgets its data when it stops.
+
+### Remove a report
+
+Only the project team can remove reports; the website has no delete button (SRS 5.2).
+
+- **Local:** open <http://127.0.0.1:4000/firestore> while a local configuration is running, open `reports`, choose the report and use its menu to delete the document.
+- **Production:** do the same in the Firebase Console.
+
+Then delete its photo in Cloudinary, in the `pa-ayo` folder.
 
 ## Run the tests
 

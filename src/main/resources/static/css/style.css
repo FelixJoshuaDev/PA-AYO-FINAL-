@@ -159,17 +159,6 @@ a {
   border-bottom: 0;
 }
 
-.hot-tag {
-  width: fit-content;
-  margin-bottom: .5rem;
-  padding: .1rem .6rem;
-  border-radius: 4px;
-  background: #b42318;
-  color: #fff;
-  font-size: .85rem;
-  text-transform: uppercase;
-}
-
 .news-top {
   display: flex;
   align-items: center;
@@ -243,7 +232,7 @@ a {
   gap: 1.25rem 1.5rem;
 }
 
-.card {
+.card, .hot-card {
   display: flex;
   flex-direction: column;
   min-height: 330px;
@@ -252,6 +241,35 @@ a {
   border-radius: 4px;
   background: #fff;
   overflow-wrap: anywhere;
+}
+
+.hot {
+  margin-bottom: 2rem;
+}
+
+.hot-heading {
+  margin-bottom: .75rem;
+  color: #b42318;
+  font: 500 1.6rem/1.15 var(--heading);
+}
+
+.hot-card {
+  border: 2px solid #b42318;
+}
+
+.hot-card .news-source {
+  margin-top: .5rem;
+}
+
+.hot-card .card-title {
+  margin-top: 0;
+  -webkit-line-clamp: 3;
+}
+
+.hot-card .news-bottom {
+  flex-wrap: wrap;
+  margin-top: auto;
+  padding-top: .6rem;
 }
 
 .card-badges {
@@ -268,6 +286,12 @@ a {
   background: #d9d9d9;
   font-size: .9rem;
   white-space: nowrap;
+}
+
+.badge-hot {
+  background: #b42318;
+  color: #fff;
+  text-transform: uppercase;
 }
 
 .badge-sanitation {
@@ -754,6 +778,15 @@ td select {
 
   .news {
     position: static;
+    order: 1;
+  }
+
+  .hot-card {
+    min-height: 0;
+  }
+
+  .hot-card .card-photo, .hot-card .card-description {
+    display: none;
   }
 
   .news-list {

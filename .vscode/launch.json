@@ -7,14 +7,6 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Pa-Ayo (real data)",
-      "type": "java",
-      "request": "launch",
-      "mainClass": "com.paayo.PaAyoApplication",
-      "cwd": "${workspaceFolder}",
-      "vmArgs": "-Dpa-ayo.firebase.emulator-host= -Dpa-ayo.firebase.credentials-path=secrets/firebase-service-account.json"
-    },
-    {
       "name": "Pa-Ayo (local test database)",
       "type": "java",
       "request": "launch",
@@ -30,6 +22,14 @@
       "cwd": "${workspaceFolder}",
       "vmArgs": "-Dspring.profiles.active=seed",
       "preLaunchTask": "Start local database"
+    },
+    {
+      "name": "Pa-Ayo (real data)",
+      "type": "java",
+      "request": "launch",
+      "mainClass": "com.paayo.PaAyoApplication",
+      "cwd": "${workspaceFolder}",
+      "vmArgs": "-Dpa-ayo.firebase.emulator-host= -Dpa-ayo.firebase.credentials-path=secrets/firebase-service-account.json"
     }
   ]
 }

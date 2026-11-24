@@ -147,7 +147,7 @@ class EndToEndIT {
     }
 
     private int gridColumns() {
-        return ((String) page.locator(".grid").evaluate("g => getComputedStyle(g).gridTemplateColumns")).split(" ").length;
+        return ((String) page.locator(".grid").last().evaluate("g => getComputedStyle(g).gridTemplateColumns")).split(" ").length;
     }
 
     /** TC-12: the fixtures of DDS 10.2 are stored. */
@@ -172,6 +172,16 @@ class EndToEndIT {
             assertThat(gridColumns()).as("columns at %d px", rule[0]).isEqualTo(rule[1]);
             assertThat(page.evaluate("document.documentElement.scrollWidth <= innerWidth"))
                     .as("no sideways scrolling at %d px", rule[0]).isEqualTo(true);
+        }
+    }
+
+    /** FR-07: the newest news is in the main area, also while a category is selected. */
+    @Test
+    void showsHotNewsInTheMainArea() {
+        for (String path : new String[] {"/", "/?category=ELECTRICAL"}) {
+            page.navigate(path);
+            assertThat(page.locator("main .hot-card")).hasCount(4);
+            assertThat(page.locator("aside .news-item")).hasCount(2);
         }
     }
 
