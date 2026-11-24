@@ -52,7 +52,7 @@ Paths are shortened: `java/` is `src/main/java/com/paayo/`, `templates/` and `st
 |---|---|---|---|---|---|
 | 31 | 4, 2 and 1 columns at 1200 and 768 px | SRS 3.8, PROP | `static/css/style.css` | `EndToEndIT.gridIsResponsive` | Done |
 | 32 | WCAG 2.1 AA | PROP | Templates, `static/css/style.css` | Checked with axe-core on 24 Nov 2026: no violations on S1, S2, S3, S3b (request page) and S4 | Done |
-| 33 | Deny-all rules and composite index | SRS 3.6.3, DDS 8 | `firestore.rules`, `firestore.indexes.json` | Rules Playground, console | Live check |
+| 33 | Deny-all rules and composite index | SRS 3.6.3, DDS 8 | `firestore.rules`, `firestore.indexes.json`, `firebase.json` | Checked on the production project on 24 Nov 2026: outside access refused, category filter works | Done |
 | 34 | Seed the first admin from the environment | SRS 3.6.3, DDS 9.3 | `java/config/AdminSeeder` | `AdminSeederTest` | Done |
 | 35 | Same recovery reply for every entry | SRS UC-07, DDS 8.3 | `AdminController.requestPasswordReset`, `AdminAuthService` | `AdminControllerTest`, `AdminAuthServiceTest`, `EndToEndIT` | Done |
 | 36 | Visitors cannot set protected fields; createdAt never changes | DDS 8.3 | `ReportController.initBinder`, `ReportRepository.updateStatus` | `ReportControllerTest`, `RepositoryIT` | Done |
