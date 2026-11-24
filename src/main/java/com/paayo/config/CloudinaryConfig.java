@@ -21,7 +21,7 @@ public class CloudinaryConfig {
     private static final Logger log = LoggerFactory.getLogger(CloudinaryConfig.class);
     private static final int TIMEOUT_SECONDS = 5;
 
-    /** Provides the Cloudinary client with the 5-second timeout of NFR-02. */
+    /** Provides the Cloudinary client. It gives up after 5 seconds without an answer; a slow upload may take longer. */
     @Bean
     public Cloudinary cloudinary(@Value("${pa-ayo.cloudinary.url}") String url) {
         if (url.isBlank()) {

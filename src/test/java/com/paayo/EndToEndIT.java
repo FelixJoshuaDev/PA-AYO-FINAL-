@@ -202,6 +202,17 @@ class EndToEndIT {
         assertThat(cards().first().locator("img")).hasAttribute("src", Pattern.compile(".*/photo.png"));
     }
 
+    /** The button locks while a report is being sent, so a second click cannot duplicate it, and unlocks on return. */
+    @Test
+    void blocksASecondSubmit() {
+        page.navigate("/reports/new");
+        page.locator("form").dispatchEvent("submit"); // runs the page's handler without leaving the page
+        assertThat(page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Submitting..."))).isDisabled();
+
+        page.evaluate("window.dispatchEvent(new Event('pageshow'))"); // what the browser fires on Back
+        assertThat(page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Submit Report"))).isEnabled();
+    }
+
     /** TC-16c: a PDF and a 6 MB photo are refused with an inline error, before and after upload. */
     @Test
     void refusesInvalidPhotos() throws IOException {

@@ -21,7 +21,7 @@ Paths are shortened: `java/` is `src/main/java/com/paayo/`, `templates/` and `st
 | 9 | FR-09 | Public titles, statuses and category filter | SRS, PROP, DDS | `ReportController.filterByCategory`, `ReportRepository.findByCategory`, `templates/dashboard.html` | `ReportControllerTest`, `EndToEndIT` | Done |
 | 10 | FR-10 | At least 80% line coverage on four classes | SRS, PROP | `pom.xml` (JaCoCo gate) | `mvn test` fails below 80% | Done |
 | 11 | FR-11 | Live on Render over HTTPS by 4 Dec 2026 | SRS, PROP | `Dockerfile`, `docs/DEPLOYMENT.md` | TC-15 | Live check |
-| 12 | FR-12 | Optional photo and placeholders | SRS, PROP, DDS | `java/service/ImageStorageService`, `java/config/CloudinaryConfig`, `static/images/` | `ImageStorageServiceTest`, `EndToEndIT` (Cloudinary faked) | Live check |
+| 12 | FR-12 | Optional photo and placeholders | SRS, PROP, DDS | `java/service/ImageStorageService`, `java/config/CloudinaryConfig`, `static/images/` | `ImageStorageServiceTest`, `EndToEndIT` (Cloudinary faked); real JPEG, PNG and WebP uploads checked on Cloudinary on 24 Nov 2026 | Done |
 | 13 | FR-13 | Admin password recovery | SRS, PROP, DDS | `java/service/AdminAuthService`, `AdminController`, `java/repository/AdminRepository`, `templates/admin/` | `AdminAuthServiceTest`, `AdminControllerTest`, `RepositoryIT`, `EndToEndIT` (mail faked) | Live check |
 
 ## Non-functional requirements
@@ -91,6 +91,7 @@ Record the observed results in the team's QA report during Phase 4.
 | Document says | Code does | Reason |
 |---|---|---|
 | Firebase Storage for photos (SRS 3.1) | Cloudinary free plan | Firebase Storage needs the paid Blaze plan. SRS Appendix B #10 names Cloudinary as the alternative. |
+| Storage timeout over 5 s shows an error (SRS UC-01 E2) | Error after 5 s without an answer from Cloudinary; a slow upload may take longer | A hard 5 s limit would refuse valid photos near 5 MB on slow connections (FR-12) |
 | Port 587 or 465 for email (SRS Appendix B #11) | Brevo on port 2525 | Render's free plan blocks 25, 465 and 587 |
 | DPWH Region VII and Mandaue PIO pages (DDS 9.1) | Province of Cebu pages | See `docs/NEWS_SOURCES.md` |
 | No keyword filter | Keyword list for infrastructure news | FR-06 asks for infrastructure advisories, and the source is general |

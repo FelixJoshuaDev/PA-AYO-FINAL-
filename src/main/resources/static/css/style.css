@@ -554,6 +554,11 @@ a {
   background: var(--blue-dark);
 }
 
+.button:disabled {
+  background: #5b6675;
+  cursor: wait;
+}
+
 .button-wide {
   width: 100%;
   margin-top: 1.5rem;

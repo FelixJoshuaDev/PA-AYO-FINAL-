@@ -1,7 +1,7 @@
 /*
  * File:        report-form.js
  * Module:      Report submission form (S2)
- * Purpose:     Photo drag and drop, preview and early type/size check. The server repeats every check.
+ * Purpose:     Photo drag and drop, preview, early checks and double-submit guard. The server repeats every check.
  * Responsible: Reuel Matthew Arcilla
  * Created:     2026-11-24
  */
@@ -13,6 +13,8 @@
   const hint = document.getElementById('photo-hint');
   const error = document.getElementById('photo-error');
   const defaultHint = hint.textContent;
+  const submit = input.form.querySelector('button[type="submit"]');
+  const submitLabel = submit.textContent;
 
   function showSelection() {
     const file = input.files[0];
@@ -32,6 +34,14 @@
     hint.textContent = accepted ? accepted.name : defaultHint;
   }
 
+  // A photo can take several seconds to upload; a second click would create a duplicate report.
+  function setSubmitting(active) {
+    submit.disabled = active;
+    submit.textContent = active ? 'Submitting...' : submitLabel;
+  }
+
+  input.form.addEventListener('submit', () => setSubmitting(true));
+  window.addEventListener('pageshow', () => setSubmitting(false));
   input.addEventListener('change', showSelection);
   ['dragover', 'dragleave', 'drop'].forEach(type => zone.addEventListener(type, event => {
     event.preventDefault();
