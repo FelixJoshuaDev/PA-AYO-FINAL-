@@ -108,7 +108,7 @@ Photos and reset emails also need the Cloudinary and Brevo values; see [docs/DEP
 |---|---|---|
 | Pa-Ayo (local test database) | Local emulator, empty | Nothing; VS Code starts the emulator |
 | Pa-Ayo (local, with sample reports) | Local emulator, 30 sample reports | Nothing; VS Code starts the emulator |
-| Pa-Ayo (real data) | Your Firebase project: real reports and news | `secrets/firebase-service-account.json` |
+| Pa-Ayo (real data), switched off in `.vscode/launch.json` for now | Your Firebase project: real reports and news | `secrets/firebase-service-account.json` |
 
 ### From the terminal
 
