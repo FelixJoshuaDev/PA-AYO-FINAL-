@@ -77,11 +77,11 @@ code --install-extension vmware.vscode-boot-dev-pack
 ### 3. Get the code
 
 ```bash
-git clone https://github.com/FelixJoshuaDev/PA-AYO-FINAL-.git
+git clone https://github.com/FJAbing-source/Pa-Ayo-FINAL.git
 ```
 
 ```bash
-code PA-AYO-FINAL-
+code Pa-Ayo-FINAL
 ```
 
 Use VS Code's own terminal for the next steps: the project settings point it to JDK 21. In another terminal, run `export JAVA_HOME=$(/usr/libexec/java_home -v 21)` first.
