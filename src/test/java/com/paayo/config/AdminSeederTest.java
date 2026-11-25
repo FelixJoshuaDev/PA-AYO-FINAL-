@@ -70,7 +70,7 @@ class AdminSeederTest {
         new AdminSeeder(repository, encoder, "admin", "Admin@Example.com", "password1", "").seedFirstAdmin();
         verify(repository, never()).save(any());
 
-        new AdminSeeder(repository, encoder, "admin", "admin@mandaue.gov.ph", "password1", "").seedFirstAdmin();
+        new AdminSeeder(repository, encoder, "admin", "admin@pa-ayo.test", "password1", "").seedFirstAdmin();
         verify(repository).save(any());
     }
 

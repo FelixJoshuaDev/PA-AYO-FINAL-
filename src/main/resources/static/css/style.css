@@ -1078,14 +1078,6 @@ td select {
 /* Motion. Short, and only for visitors who have not asked their device for less movement.
    Nothing that starts by itself runs longer than 5 seconds (WCAG 2.2.2). */
 @media (prefers-reduced-motion: no-preference) {
-  @view-transition {
-    navigation: auto;
-  }
-
-  ::view-transition-group(root) {
-    animation-duration: .25s;
-  }
-
   .card, .hot-card, .news-item, tbody tr {
     animation: rise .5s var(--ease) backwards;
     animation-delay: calc(min(var(--i, 0), 11) * 45ms);
