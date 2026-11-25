@@ -20,6 +20,7 @@ import com.microsoft.playwright.Page;
 import com.microsoft.playwright.Playwright;
 import com.microsoft.playwright.options.AriaRole;
 import com.microsoft.playwright.options.FilePayload;
+import com.microsoft.playwright.options.ReducedMotion;
 import com.paayo.model.Admin;
 import com.paayo.model.Category;
 import com.paayo.repository.AdminRepository;
@@ -190,6 +191,29 @@ class EndToEndIT {
         }
     }
 
+    /** The news sidebar always ends inside the window, at the top of the page and after scrolling. */
+    @Test
+    void sidebarFitsTheScreen() {
+        for (int[] size : new int[][] {{1470, 830}, {1366, 768}, {1280, 500}, {768, 1024}}) {
+            page.setViewportSize(size[0], size[1]);
+            page.navigate("/");
+            for (int scroll : new int[] {0, 900}) {
+                page.evaluate("y => scrollTo({top: y, behavior: 'instant'})", scroll);
+                assertThat(page.evaluate("document.querySelector('.news').getBoundingClientRect().bottom <= innerHeight"))
+                        .as("sidebar at %d x %d, scrolled %d", size[0], size[1], scroll).isEqualTo(true);
+            }
+        }
+    }
+
+    /** Visitors who ask their device for less movement get none. */
+    @Test
+    void respectsReducedMotion() {
+        page.emulateMedia(new Page.EmulateMediaOptions().setReducedMotion(ReducedMotion.REDUCE));
+        page.navigate("/");
+
+        assertThat(page.evaluate("getComputedStyle(document.querySelector('.card')).animationName")).isEqualTo("none");
+    }
+
     /** TC-01 and TC-16b: a report without a photo is the first card and shows the placeholder. */
     @Test
     void submitsAReportWithoutAPhoto() {
@@ -200,6 +224,8 @@ class EndToEndIT {
 
         assertThat(page).hasURL("http://localhost:" + port + "/");
         assertThat(page.getByRole(AriaRole.STATUS)).containsText("Your report was submitted");
+        page.getByText("See your report").click();
+        assertThat(page.locator("#new-report")).containsText("Pothole without photo");
         assertThat(cards().first()).containsText("Pothole without photo");
         assertThat(cards().first()).containsText("Reported");
         assertThat(cards().first().locator("img")).hasAttribute("src", "/images/report-placeholder.png");

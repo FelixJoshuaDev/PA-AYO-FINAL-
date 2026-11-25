@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments :: head('Admin Control Dashboard')}"></head>
-<body>
+<body class="admin-page">
   <header class="site-header">
     <a th:replace="~{fragments :: brand}"></a>
     <form method="post" th:action="@{/admin/logout}">
@@ -19,7 +19,7 @@
   <main class="admin">
     <div class="admin-top">
       <div>
-        <h1>Admin Control Dashboard</h1>
+        <h1 class="accent">Admin Control Dashboard</h1>
         <p class="subtitle">Manage and track community infrastructure reports.</p>
       </div>
       <form method="post" th:action="@{/admin/news/fetch}">
@@ -54,7 +54,7 @@
           <tr th:if="${reports.isEmpty()}">
             <td colspan="7">No reports yet.</td>
           </tr>
-          <tr th:each="report : ${reports}" th:with="formId=|status-${report.reportId}|">
+          <tr th:each="report, i : ${reports}" th:with="formId=|status-${report.reportId}|" th:style="|--i:${i.index}|">
             <td class="nowrap"><time th:datetime="${report.createdAt}"
                 th:text="${#temporals.format(report.createdAt, 'MMM d, yyyy')}">Nov 13, 2026</time></td>
             <td><span class="badge badge-upper" th:classappend="|badge-${#strings.toLowerCase(report.category.name())}|"
@@ -63,7 +63,7 @@
             <td th:text="${report.location}">Location</td>
             <td><div class="clamp" th:text="${report.description}" th:title="${report.description}">Description</div></td>
             <td>
-              <select name="status" th:form="${formId}" th:aria-label="|Status of ${report.title}|">
+              <select name="status" th:form="${formId}" th:classappend="|status-${#strings.toLowerCase(report.status.name())}|" th:aria-label="|Status of ${report.title}|">
                 <option th:each="status : ${statuses}" th:value="${status.name()}" th:text="${status.displayName}"
                         th:selected="${status == report.status}">Reported</option>
               </select>
@@ -85,6 +85,6 @@
       </table>
     </div>
   </main>
-  <script th:src="@{/js/confirm.js}" defer></script>
+  <script th:src="@{/js/forms.js}" defer></script>
 </body>
 </html>

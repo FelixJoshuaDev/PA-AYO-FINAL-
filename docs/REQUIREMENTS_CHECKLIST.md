@@ -62,7 +62,7 @@ Paths are shortened: `java/` is `src/main/java/com/paayo/`, `templates/` and `st
 | 40 | 30 reports, 6 news items, 2 admins as sample data | DDS 10.2 | `java/config/SampleDataLoader`, `AdminSeeder` | `EndToEndIT.sampleDataIsComplete` | Done |
 | 41 | Test cases TC-01 to TC-17 | SRS 6.2, PROP | See the next table | | TC-15 and UAT pending |
 | 42 | Purge Resolved reports older than 90 days | SRS 5.2, DDS 9.4, PROP | `docs/DATABASE_SETUP.md` (Maintenance) | | Manual |
-| 43 | An authenticated admin deletes a report and its photo, after a confirmation | Team decision, 25 Nov 2026; supports PROP Risk 7 and Rollback Plan | `AdminController.deleteReport`, `ReportService.deleteReport`, `ReportRepository.delete`, `ImageStorageService.deletePhoto`, `templates/admin/dashboard.html`, `static/js/confirm.js` | `AdminControllerTest`, `ReportServiceTest`, `ImageStorageServiceTest`, `RepositoryIT`, `EndToEndIT`; real photo deletion checked on Cloudinary | Done |
+| 43 | An authenticated admin deletes a report and its photo, after a confirmation | Team decision, 25 Nov 2026; supports PROP Risk 7 and Rollback Plan | `AdminController.deleteReport`, `ReportService.deleteReport`, `ReportRepository.delete`, `ImageStorageService.deletePhoto`, `templates/admin/dashboard.html`, `static/js/forms.js` | `AdminControllerTest`, `ReportServiceTest`, `ImageStorageServiceTest`, `RepositoryIT`, `EndToEndIT`; real photo deletion checked on Cloudinary | Done |
 
 ## Test cases
 

@@ -11,7 +11,7 @@
 <body>
   <main class="centered">
     <!--/* The token is also in the URL because an oversized upload is discarded before its fields can be read. */-->
-    <form class="panel panel-form" method="post" enctype="multipart/form-data" novalidate
+    <form class="panel panel-form" id="report-form" method="post" enctype="multipart/form-data" novalidate
           th:action="@{/reports/new(_csrf=${_csrf.token})}" th:object="${report}">
       <h1>Report an Issue</h1>
       <p class="subtitle muted">Please provide details to help us resolve the issue</p>
