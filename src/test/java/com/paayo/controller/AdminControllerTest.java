@@ -3,7 +3,6 @@
  * Module:      Testing
  * Purpose:     Checks admin access rules, login, recovery and status updates (TC-05, TC-06, TC-17).
  * Responsible: Reuel Matthew Arcilla
- * Created:     2026-11-24
  */
 package com.paayo.controller;
 

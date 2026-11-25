@@ -3,7 +3,6 @@
  * Module:      Sample data
  * Purpose:     Loads 30 sample reports, and on the emulator also sample news and an expired-token admin (seed profile).
  * Responsible: Reuel Matthew Arcilla
- * Created:     2026-11-24
  */
 package com.paayo.config;
 

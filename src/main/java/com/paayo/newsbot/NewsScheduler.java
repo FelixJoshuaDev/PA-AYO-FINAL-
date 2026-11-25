@@ -3,7 +3,6 @@
  * Module:      News bot
  * Purpose:     Runs the news bot at startup and on a daily schedule (FR-06).
  * Responsible: Felix Joshua H. Abing
- * Created:     2026-11-24
  */
 package com.paayo.newsbot;
 

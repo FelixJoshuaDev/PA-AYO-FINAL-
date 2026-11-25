@@ -3,7 +3,6 @@
  * Module:      Database
  * Purpose:     Waits for Firestore calls with the 5-second hard timeout (NFR-02).
  * Responsible: Felix Joshua H. Abing
- * Created:     2026-11-24
  */
 package com.paayo.repository;
 

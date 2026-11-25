@@ -3,7 +3,6 @@
  * Module:      Error handling
  * Purpose:     Signals that Firestore or photo storage failed or timed out (NFR-02).
  * Responsible: Felix Joshua H. Abing
- * Created:     2026-11-24
  */
 package com.paayo.exception;
 

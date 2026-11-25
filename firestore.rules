@@ -2,7 +2,6 @@
 // Module:      Database
 // Purpose:     Denies all direct client access. Only the server-side Admin SDK reaches Firestore.
 // Responsible: Felix Joshua H. Abing
-// Created:     2026-11-24
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {

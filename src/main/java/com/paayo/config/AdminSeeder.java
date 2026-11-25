@@ -3,7 +3,6 @@
  * Module:      Admin security
  * Purpose:     Creates the first administrator from environment variables when none exists.
  * Responsible: Felix Joshua H. Abing
- * Created:     2026-11-24
  */
 package com.paayo.config;
 

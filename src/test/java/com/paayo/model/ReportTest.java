@@ -3,7 +3,6 @@
  * Module:      Testing
  * Purpose:     Checks report field limits and status changes (FR-05, FR-08, TC-02, TC-03).
  * Responsible: Reuel Matthew Arcilla
- * Created:     2026-11-24
  */
 package com.paayo.model;
 

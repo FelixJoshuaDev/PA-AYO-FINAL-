@@ -3,7 +3,6 @@
  * Module:      Report photos
  * Purpose:     Validates, stores and deletes optional report photos on Cloudinary (FR-08, FR-12).
  * Responsible: Felix Joshua H. Abing
- * Created:     2026-11-24
  */
 package com.paayo.service;
 

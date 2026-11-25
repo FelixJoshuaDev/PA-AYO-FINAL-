@@ -2,7 +2,6 @@
 # Module:      Deployment
 # Purpose:     Keeps secrets and build output out of the Docker build context.
 # Responsible: Felix Joshua H. Abing
-# Created:     2026-11-24
 
 .git
 .env

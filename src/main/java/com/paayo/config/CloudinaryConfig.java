@@ -3,7 +3,6 @@
  * Module:      Report photos
  * Purpose:     Sets up the Cloudinary client that stores report photos (FR-12).
  * Responsible: Felix Joshua H. Abing
- * Created:     2026-11-24
  */
 package com.paayo.config;
 

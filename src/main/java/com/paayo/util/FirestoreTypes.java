@@ -3,7 +3,6 @@
  * Module:      Database
  * Purpose:     Converts between Java date types (Asia/Manila) and Firestore timestamps (NFR-16).
  * Responsible: Felix Joshua H. Abing
- * Created:     2026-11-24
  */
 package com.paayo.util;
 

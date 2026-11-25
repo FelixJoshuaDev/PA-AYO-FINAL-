@@ -3,7 +3,6 @@
  * Module:      Testing
  * Purpose:     Checks page parsing on offline fixtures and fetching on a local test server (TC-07, TC-09, TC-10).
  * Responsible: Reuel Matthew Arcilla
- * Created:     2026-11-24
  */
 package com.paayo.newsbot;
 

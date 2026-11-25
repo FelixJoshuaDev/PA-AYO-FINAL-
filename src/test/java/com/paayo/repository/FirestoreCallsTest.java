@@ -3,7 +3,6 @@
  * Module:      Testing
  * Purpose:     Checks that Firestore failures become PersistenceException (NFR-02).
  * Responsible: Reuel Matthew Arcilla
- * Created:     2026-11-24
  */
 package com.paayo.repository;
 

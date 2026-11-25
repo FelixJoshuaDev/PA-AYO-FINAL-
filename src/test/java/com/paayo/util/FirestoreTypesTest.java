@@ -3,7 +3,6 @@
  * Module:      Testing
  * Purpose:     Checks the Asia/Manila date conversions (NFR-16).
  * Responsible: Reuel Matthew Arcilla
- * Created:     2026-11-24
  */
 package com.paayo.util;
 

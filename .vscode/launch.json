@@ -2,7 +2,6 @@
 // Module:      Project setup
 // Purpose:     One-click run configurations for VS Code: the real database, the local one, and sample data.
 // Responsible: Felix Joshua H. Abing
-// Created:     2026-11-25
 {
   "version": "0.2.0",
   "configurations": [

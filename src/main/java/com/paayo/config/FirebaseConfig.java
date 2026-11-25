@@ -3,7 +3,6 @@
  * Module:      Database
  * Purpose:     Connects to Firestore: the local emulator when configured, otherwise production with a service-account key.
  * Responsible: Felix Joshua H. Abing
- * Created:     2026-11-24
  */
 package com.paayo.config;
 

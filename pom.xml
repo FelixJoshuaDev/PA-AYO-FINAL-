@@ -4,7 +4,6 @@
   Module:      Project setup
   Purpose:     Maven build: Java 21, Spring Boot 3, dependencies, tests and the coverage gate.
   Responsible: Felix Joshua H. Abing
-  Created:     2026-11-24
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"

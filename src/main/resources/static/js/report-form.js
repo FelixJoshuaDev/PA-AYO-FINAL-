@@ -3,7 +3,6 @@
  * Module:      Report submission form (S2)
  * Purpose:     Photo drag and drop, preview, early checks and double-submit guard. The server repeats every check.
  * Responsible: Reuel Matthew Arcilla
- * Created:     2026-11-24
  */
 (() => {
   const MAX_BYTES = 5 * 1024 * 1024;

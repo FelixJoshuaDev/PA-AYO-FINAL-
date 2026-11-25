@@ -3,7 +3,6 @@
  * Module:      Testing
  * Purpose:     Checks that a failing news run never reaches the website (NFR-03).
  * Responsible: Reuel Matthew Arcilla
- * Created:     2026-11-24
  */
 package com.paayo.newsbot;
 

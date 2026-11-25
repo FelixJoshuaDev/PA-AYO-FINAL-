@@ -3,7 +3,6 @@
  * Module:      Testing
  * Purpose:     Checks the public pages and the submission form (TC-01 to TC-04, TC-14, TC-16).
  * Responsible: Reuel Matthew Arcilla
- * Created:     2026-11-24
  */
 package com.paayo.controller;
 

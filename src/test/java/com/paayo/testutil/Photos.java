@@ -3,7 +3,6 @@
  * Module:      Testing
  * Purpose:     Builds in-memory photo files of any type and size for the tests.
  * Responsible: Reuel Matthew Arcilla
- * Created:     2026-11-24
  */
 package com.paayo.testutil;
 

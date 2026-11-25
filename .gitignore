@@ -2,7 +2,6 @@
 # Module:      Project setup
 # Purpose:     Keeps secrets, build output and editor files out of Git.
 # Responsible: Felix Joshua H. Abing
-# Created:     2026-11-24
 
 # Secrets (NFR-08): never commit real credentials
 .env

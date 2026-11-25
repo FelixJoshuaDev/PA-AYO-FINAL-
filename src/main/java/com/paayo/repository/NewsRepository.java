@@ -3,7 +3,6 @@
  * Module:      News bot
  * Purpose:     Reads and writes the news collection (FR-07, NFR-11).
  * Responsible: Felix Joshua H. Abing
- * Created:     2026-11-24
  */
 package com.paayo.repository;
 

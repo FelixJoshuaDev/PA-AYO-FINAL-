@@ -2,7 +2,6 @@
 # Module:      Deployment
 # Purpose:     Builds the application and runs it on Java 21 in a small container for Render.
 # Responsible: Felix Joshua H. Abing
-# Created:     2026-11-24
 
 FROM maven:3.9-eclipse-temurin-21 AS build
 WORKDIR /app

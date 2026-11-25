@@ -3,7 +3,6 @@
  * Module:      Data model
  * Purpose:     A community infrastructure report and its field rules (FR-01, FR-03, FR-08).
  * Responsible: Felix Joshua H. Abing
- * Created:     2026-11-24
  */
 package com.paayo.model;
 

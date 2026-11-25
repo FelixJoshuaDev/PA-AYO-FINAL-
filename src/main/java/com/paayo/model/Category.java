@@ -3,7 +3,6 @@
  * Module:      Data model
  * Purpose:     Lists the three infrastructure categories a report can have (FR-02).
  * Responsible: Felix Joshua H. Abing
- * Created:     2026-11-24
  */
 package com.paayo.model;
 

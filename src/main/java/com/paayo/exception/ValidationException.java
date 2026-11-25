@@ -3,7 +3,6 @@
  * Module:      Error handling
  * Purpose:     Signals that submitted data breaks a validation rule (FR-08).
  * Responsible: Reuel Matthew Arcilla
- * Created:     2026-11-24
  */
 package com.paayo.exception;
 

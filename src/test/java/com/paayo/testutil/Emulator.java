@@ -3,7 +3,6 @@
  * Module:      Testing
  * Purpose:     Shared settings and clean-up for tests that use the Firestore emulator.
  * Responsible: Reuel Matthew Arcilla
- * Created:     2026-11-24
  */
 package com.paayo.testutil;
 

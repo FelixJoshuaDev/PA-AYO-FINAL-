@@ -3,7 +3,6 @@
  * Module:      Testing
  * Purpose:     Checks when the first administrator is created.
  * Responsible: Reuel Matthew Arcilla
- * Created:     2026-11-24
  */
 package com.paayo.config;
 

@@ -3,7 +3,6 @@
  * Module:      Admin security
  * Purpose:     Verifies admin logins and runs the Forgot Password flow (FR-05, FR-13, NFR-06).
  * Responsible: Felix Joshua H. Abing
- * Created:     2026-11-24
  */
 package com.paayo.service;
 

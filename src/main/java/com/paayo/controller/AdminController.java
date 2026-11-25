@@ -3,7 +3,6 @@
  * Module:      Admin pages
  * Purpose:     Serves admin login, password recovery and the report management dashboard (UC-03, UC-04, UC-07).
  * Responsible: Felix Joshua H. Abing
- * Created:     2026-11-24
  */
 package com.paayo.controller;
 

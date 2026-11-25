@@ -3,7 +3,6 @@
  * Module:      News bot
  * Purpose:     Runs the news pipeline and provides the latest news (FR-06, FR-07, NFR-11).
  * Responsible: Felix Joshua H. Abing
- * Created:     2026-11-24
  */
 package com.paayo.service;
 

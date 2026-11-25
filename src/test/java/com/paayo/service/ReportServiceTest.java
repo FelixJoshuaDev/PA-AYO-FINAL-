@@ -3,7 +3,6 @@
  * Module:      Testing
  * Purpose:     Checks report submission, listing and status rules (TC-01, TC-03, TC-05, TC-16).
  * Responsible: Reuel Matthew Arcilla
- * Created:     2026-11-24
  */
 package com.paayo.service;
 

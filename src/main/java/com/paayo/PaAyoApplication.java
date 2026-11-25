@@ -3,7 +3,6 @@
  * Module:      Project setup
  * Purpose:     Starts the Pa-Ayo Spring Boot application and enables scheduled jobs.
  * Responsible: Felix Joshua H. Abing
- * Created:     2026-11-24
  */
 package com.paayo;
 

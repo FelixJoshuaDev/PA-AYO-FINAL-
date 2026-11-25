@@ -3,7 +3,6 @@
  * Module:      Testing
  * Purpose:     Checks photo validation and storage (FR-08, FR-12, TC-16).
  * Responsible: Reuel Matthew Arcilla
- * Created:     2026-11-24
  */
 package com.paayo.service;
 

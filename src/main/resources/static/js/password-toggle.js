@@ -3,7 +3,6 @@
  * Module:      Admin security
  * Purpose:     Show or hide the password in a password field.
  * Responsible: Felix Joshua H. Abing
- * Created:     2026-11-24
  */
 document.querySelectorAll('.reveal').forEach(button => {
   const input = button.previousElementSibling;

@@ -3,7 +3,6 @@
  * Module:      Data model
  * Purpose:     An administrator account with its password and reset-token hashes (FR-05, FR-13).
  * Responsible: Felix Joshua H. Abing
- * Created:     2026-11-24
  */
 package com.paayo.model;
 

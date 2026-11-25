@@ -3,7 +3,6 @@
  * Module:      Testing
  * Purpose:     Checks summary length and sentence handling (FR-07, TC-11).
  * Responsible: Reuel Matthew Arcilla
- * Created:     2026-11-24
  */
 package com.paayo.newsbot;
 

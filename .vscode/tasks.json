@@ -2,7 +2,6 @@
 // Module:      Project setup
 // Purpose:     Starts the local Firestore emulator for the local run configurations.
 // Responsible: Felix Joshua H. Abing
-// Created:     2026-11-25
 {
   "version": "2.0.0",
   "tasks": [

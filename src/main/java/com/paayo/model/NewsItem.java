@@ -3,7 +3,6 @@
  * Module:      Data model
  * Purpose:     A summarized government news item (FR-06, FR-07).
  * Responsible: Felix Joshua H. Abing
- * Created:     2026-11-24
  */
 package com.paayo.model;
 

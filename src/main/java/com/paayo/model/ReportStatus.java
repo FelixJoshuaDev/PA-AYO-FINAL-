@@ -3,7 +3,6 @@
  * Module:      Data model
  * Purpose:     Lists the lifecycle states of a report (FR-05).
  * Responsible: Felix Joshua H. Abing
- * Created:     2026-11-24
  */
 package com.paayo.model;
 

@@ -3,7 +3,6 @@
  * Module:      Testing
  * Purpose:     Checks every repository operation against the Firestore emulator (WBS 1.4.3).
  * Responsible: Reuel Matthew Arcilla
- * Created:     2026-11-24
  */
 package com.paayo.repository;
 

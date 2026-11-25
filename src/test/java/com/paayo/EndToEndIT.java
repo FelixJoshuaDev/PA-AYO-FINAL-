@@ -3,7 +3,6 @@
  * Module:      Testing
  * Purpose:     Drives the running site in Chrome with Playwright (TC-01, TC-02, TC-04 to TC-06, TC-12, TC-14, TC-16, TC-17).
  * Responsible: Reuel Matthew Arcilla
- * Created:     2026-11-24
  */
 package com.paayo;
 

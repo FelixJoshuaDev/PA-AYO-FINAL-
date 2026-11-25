@@ -3,7 +3,6 @@
  * Module:      Admin security
  * Purpose:     Protects admin routes, CSRF and logout, and provides the BCrypt encoder (NFR-06, NFR-07, NFR-09).
  * Responsible: Felix Joshua H. Abing
- * Created:     2026-11-24
  */
 package com.paayo.config;
 

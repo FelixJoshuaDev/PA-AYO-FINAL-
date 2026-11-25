@@ -3,7 +3,6 @@
  * Module:      Testing
  * Purpose:     Checks admin login and password recovery rules (TC-06, TC-17).
  * Responsible: Reuel Matthew Arcilla
- * Created:     2026-11-24
  */
 package com.paayo.service;
 

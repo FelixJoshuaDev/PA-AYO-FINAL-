@@ -3,7 +3,6 @@
  * Module:      News bot
  * Purpose:     Fetches government news pages with Jsoup and extracts their articles (FR-06, NFR-03).
  * Responsible: Felix Joshua H. Abing
- * Created:     2026-11-24
  */
 package com.paayo.newsbot;
 

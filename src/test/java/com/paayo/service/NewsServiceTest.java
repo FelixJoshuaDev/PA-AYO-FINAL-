@@ -3,7 +3,6 @@
  * Module:      Testing
  * Purpose:     Checks the news pipeline: publishing, duplicates and failures (TC-07 to TC-09).
  * Responsible: Reuel Matthew Arcilla
- * Created:     2026-11-24
  */
 package com.paayo.service;
 
