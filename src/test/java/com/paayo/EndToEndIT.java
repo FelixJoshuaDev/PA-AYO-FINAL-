@@ -193,7 +193,7 @@ class EndToEndIT {
     /** The news sidebar always ends inside the window, at the top of the page and after scrolling. */
     @Test
     void sidebarFitsTheScreen() {
-        for (int[] size : new int[][] {{1470, 830}, {1366, 768}, {1280, 500}, {768, 1024}}) {
+        for (int[] size : new int[][] {{1470, 830}, {1366, 768}, {1280, 360}, {768, 1024}}) {
             page.setViewportSize(size[0], size[1]);
             page.navigate("/");
             for (int scroll : new int[] {0, 900}) {
