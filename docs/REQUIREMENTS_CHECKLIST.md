@@ -95,7 +95,7 @@ Record the observed results in the team's QA report during Phase 4.
 | Storage timeout over 5 s shows an error (SRS UC-01 E2) | Error after 5 s without an answer from Cloudinary; a slow upload may take longer | A hard 5 s limit would refuse valid photos near 5 MB on slow connections (FR-12) |
 | Port 587 or 465 for email (SRS Appendix B #11) | Brevo on port 2525 | Render's free plan blocks 25, 465 and 587 |
 | DPWH Region VII and Mandaue PIO pages (DDS 9.1) | Province of Cebu pages | See `docs/NEWS_SOURCES.md` |
-| All news in the sidebar (SRS 3.8, mockup S1) | The newest four are Hot News cards in the main area; older items stay in the sidebar | Team decision on 25 Nov 2026; FR-07 is unchanged |
+| All news in the sidebar (SRS 3.8, mockup S1) | The newest three are Hot News cards in the main area, with the older items in the sidebar beside them; the 4-column reports use the full width below | Team decision on 25 Nov 2026; FR-07 is unchanged |
 | Spam removed only in the Firebase Console (SRS 5.2, PROP Rollback Plan) | Admins also have a Delete button; residents do not | Team decision on 25 Nov 2026; accounts for residents stay out of scope |
 | No keyword filter | Keyword list for infrastructure news | FR-06 asks for infrastructure advisories, and the source is general |
 | Article text comes from the listing (SRS 3.7.3) | Read from the article page when the listing has none | The listings show only titles |

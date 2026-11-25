@@ -108,7 +108,7 @@ class ReportControllerTest {
     }
 
     @Test
-    void showsTheNewestFourNewsItemsAsHotNewsAndTheRestInTheSidebar() throws Exception {
+    void showsTheNewestThreeNewsItemsAsHotNewsAndTheRestInTheSidebar() throws Exception {
         when(newsService.getLatestNews(10)).thenReturn(Stream.of("N1", "N2", "N3", "N4", "N5", "N6")
                 .map(ReportControllerTest::newsItem).toList());
 
@@ -116,9 +116,9 @@ class ReportControllerTest {
                 .andReturn().getResponse().getContentAsString();
         Document html = Jsoup.parse(page);
 
-        assertThat(html.select(".hot-card h3").eachText()).containsExactly("N1", "N2", "N3", "N4");
+        assertThat(html.select(".hot-card h3").eachText()).containsExactly("N1", "N2", "N3");
         assertThat(html.select(".hot-card .badge").eachText()).containsOnly("Hot News");
-        assertThat(html.select(".news-item h3").eachText()).containsExactly("N5", "N6");
+        assertThat(html.select(".news-item h3").eachText()).containsExactly("N4", "N5", "N6");
     }
 
     @Test

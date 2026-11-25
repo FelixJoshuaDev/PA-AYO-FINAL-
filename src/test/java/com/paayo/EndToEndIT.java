@@ -185,8 +185,8 @@ class EndToEndIT {
     void showsHotNewsInTheMainArea() {
         for (String path : new String[] {"/", "/?category=ELECTRICAL"}) {
             page.navigate(path);
-            assertThat(page.locator("main .hot-card")).hasCount(4);
-            assertThat(page.locator("aside .news-item")).hasCount(2);
+            assertThat(page.locator("main .hot-card")).hasCount(3);
+            assertThat(page.locator("aside .news-item")).hasCount(3);
         }
     }
 
@@ -202,6 +202,26 @@ class EndToEndIT {
                         .as("sidebar at %d x %d, scrolled %d", size[0], size[1], scroll).isEqualTo(true);
             }
         }
+    }
+
+    /** A long description is cut to four lines until the visitor opens it; a short one needs no button. */
+    @Test
+    void opensALongDescription() {
+        page.navigate("/");
+        Locator card = cards().filter(new Locator.FilterOptions().setHas(page.locator(".read-more:visible"))).first();
+        Locator button = card.locator(".read-more");
+        String hiddenText = "e => e.scrollHeight - e.clientHeight";
+        assertThat((int) card.locator(".card-description").evaluate(hiddenText)).isGreaterThan(1);
+        assertThat(page.locator(".read-more[hidden]").first()).isHidden();
+
+        button.click();
+        assertThat(button).hasText("Show less");
+        assertThat(button).hasAttribute("aria-expanded", "true");
+        assertThat((int) card.locator(".card-description").evaluate(hiddenText)).isLessThanOrEqualTo(1);
+
+        button.click();
+        assertThat(button).hasText("Read more");
+        assertThat((int) card.locator(".card-description").evaluate(hiddenText)).isGreaterThan(1);
     }
 
     /** Visitors who ask their device for less movement get none. */
@@ -279,7 +299,7 @@ class EndToEndIT {
         page.locator("#photoFile").setInputFiles(
                 new FilePayload("photo.jpg", "image/jpeg", Photos.of("image/jpeg", 1024).getBytes()));
         submit();
-        assertThat(page.getByRole(AriaRole.BUTTON)).hasCount(0); // the public page has no delete button
+        assertThat(page.locator("form, button:not(.read-more)")).hasCount(0); // visitors cannot change or delete anything
         logIn("first-password");
         Locator row = page.locator("tbody tr").filter(new Locator.FilterOptions().setHasText("Delete this report"));
         Locator delete = row.getByRole(AriaRole.BUTTON, new Locator.GetByRoleOptions().setName("Delete"));
