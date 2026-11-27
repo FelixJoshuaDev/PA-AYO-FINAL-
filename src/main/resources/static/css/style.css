@@ -159,6 +159,28 @@ a {
   cursor: pointer;
 }
 
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+}
+
+/* The main action of the site, always in view in the sticky header */
+.header-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .7rem 1.35rem;
+  border: 2px solid var(--gold);
+  font-weight: 500;
+  box-shadow: 0 4px 14px rgb(39 71 142 / 35%);
+}
+
+.header-cta span {
+  font-size: 1.45rem;
+  line-height: 1;
+}
+
 .header-link:hover, .header-link:focus-visible {
   background-size: 100% 2px;
 }
@@ -493,7 +515,7 @@ a {
   align-self: start;
 }
 
-/* A round + that grows into "+ Report an Issue" on hover or keyboard focus */
+/* Phones: "+ Report an Issue" near the thumb. Larger screens: a round + (the header has the button) that grows on hover or focus */
 .fab {
   position: fixed;
   z-index: 5;
@@ -1141,6 +1163,16 @@ td select {
 
   .header-link {
     font-size: 1rem;
+  }
+
+  .header-cta {
+    display: none;
+  }
+
+  .fab-label {
+    max-width: 180px;
+    padding-right: 1.4rem;
+    opacity: 1;
   }
 
   .fab {

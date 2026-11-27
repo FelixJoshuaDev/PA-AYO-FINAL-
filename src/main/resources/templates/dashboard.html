@@ -10,7 +10,10 @@
 <body>
   <header class="site-header">
     <a th:replace="~{fragments :: brand}"></a>
-    <a class="header-link" th:href="@{/admin/login}">Admin Login</a>
+    <div class="header-actions">
+      <a class="header-link" th:href="@{/admin/login}">Admin Login</a>
+      <a class="button header-cta" th:href="@{/reports/new}"><span aria-hidden="true">+</span> Report an Issue</a>
+    </div>
   </header>
 
   <!--/* The newest items are the Hot News cards; the list beside them has the older ones. The reports use the full width. */-->

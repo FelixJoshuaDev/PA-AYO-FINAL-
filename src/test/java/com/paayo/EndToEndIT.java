@@ -237,7 +237,7 @@ class EndToEndIT {
     @Test
     void submitsAReportWithoutAPhoto() {
         page.navigate("/");
-        page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Report an Issue")).click();
+        page.locator(".header-cta").click();
         fillForm("Pothole without photo");
         submit();
 
