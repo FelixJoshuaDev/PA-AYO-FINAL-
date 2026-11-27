@@ -92,6 +92,10 @@ public class NewsScraper {
 
         List<NewsItem> items = new ArrayList<>();
         for (Element article : doc.select(ARTICLE)) {
+            // Spam planted on cebu.gov.ph (Nov 2026) is never filed in a category; its real news always is.
+            if (article.hasClass("category-uncategorized")) {
+                continue;
+            }
             Element link = article.selectFirst(TITLE_LINK);
             // Links to other sites (ads, partners) are not this source's news.
             if (link == null || host.isEmpty() || !host.equals(host(link.absUrl("href")))) {

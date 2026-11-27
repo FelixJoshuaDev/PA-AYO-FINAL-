@@ -125,6 +125,15 @@ class NewsScraperTest {
                 .containsExactly("Bridges reopen");
     }
 
+    /** Casino spam planted on cebu.gov.ph uses road words but is always "uncategorized". */
+    @Test
+    void skipsUncategorizedSpam() {
+        assertThat(parse("<div class='hentry category-uncategorized'><h3><a href='/36736/offers-on-the-road/'>"
+                + "By doing this you can meet up with the brand new offers on the road</a></h3></div>"
+                + "<div class='hentry category-news'><h3><a href='/14113/diversion-road/'>Diversion Road opens</a></h3></div>"))
+                .extracting(NewsItem::getTitle).containsExactly("Diversion Road opens");
+    }
+
     @Test
     void ignoresOtherSitesAndBrokenLinks() {
         assertThat(parse(article("<h3><a href='https://ads.example/x'>Road ad</a></h3>")
